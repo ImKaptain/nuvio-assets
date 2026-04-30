@@ -59,8 +59,8 @@ async function processJSON(obj) {
       
       if (IMAGE_KEYS.includes(key) && typeof value === 'string' && value.match(/^https?:\/\//)) {
         
-        // Skip logic: if the URL already has your github username, ignore it
-        if (value.includes(GITHUB_USERNAME)) {
+        // Skip logic: case-insensitive check to ensure lowercase URLs are still skipped
+        if (value.toLowerCase().includes(GITHUB_USERNAME.toLowerCase())) {
           console.log(`[SKIPPING] Already optimized URL: ${value}`);
           continue;
         }
@@ -69,14 +69,15 @@ async function processJSON(obj) {
         const fileName = `${hash}.webp`; // Reverted to .webp for TV compatibility
         const filePath = path.join(ASSETS_DIR, fileName);
         
-        // Utilizing the new GitHub Pages CDN
-        const newUrl = `https://${GITHUB_USERNAME}.github.io/${REPO_NAME}/assets/images/${fileName}`;
+        // Utilizing the new GitHub Pages CDN - forced lowercase to prevent 404 errors!
+        const newUrl = `https://${GITHUB_USERNAME.toLowerCase()}.github.io/${REPO_NAME}/assets/images/${fileName}`;
         
         if (!fs.existsSync(filePath)) {
           console.log(`[PROCESSING] ${key}: ${value}`);
           const imageBuffer = await downloadImage(value);
           
-          if (imageBuffer) {
+          // Only proceed if the buffer actually has data
+          if (imageBuffer && imageBuffer.length > 0) {
             try {
               // 1. Initialize sharp with animation support
               let pipeline = sharp(imageBuffer, { animated: true });
@@ -95,16 +96,33 @@ async function processJSON(obj) {
               await pipeline.webp({ animated: true }).toFile(filePath);
                 
               console.log(`[SAVED] ${fileName} (${key})`);
+
+              // SUCCESS: Only update the JSON if the file was actually saved
+              obj[key] = newUrl;
+
             } catch (err) {
               console.error(`[SHARP ERROR] Failed to process ${value}:`, err.message);
+              // Clean up the ghost file if sharp crashed mid-write
+              if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath); 
+              }
             }
+          } else {
+            console.log(`[DOWNLOAD FAILED] Skipping URL rewrite for: ${value}`);
           }
         } else {
-          console.log(`[CACHED] ${fileName}`);
+          // Check if the cached file is actually a ghost file (0 bytes)
+          const stats = fs.statSync(filePath);
+          if (stats.size === 0) {
+            console.log(`[GHOST FILE DETECTED] Deleting empty file: ${fileName}`);
+            fs.unlinkSync(filePath);
+            // We do not update the URL so you can try running it again later
+          } else {
+            console.log(`[CACHED] ${fileName}`);
+            // File exists and is healthy, safe to update JSON
+            obj[key] = newUrl; 
+          }
         }
-        
-        // Inject the newly formatted URL back into the JSON
-        obj[key] = newUrl;
       } else {
         await processJSON(value);
       }
@@ -122,7 +140,7 @@ async function main() {
     const rawData = fs.readFileSync(INPUT_FILE, 'utf-8');
     const config = JSON.parse(rawData);
     
-    console.log('Optimizing images (WebP + Resizing)...');
+    console.log('Optimizing images (WebP + Resizing + Ghost Hunting)...');
     await processJSON(config);
     
     console.log(`Writing output to ${OUTPUT_FILE}...`);
