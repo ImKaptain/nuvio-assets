@@ -43,7 +43,8 @@
           }
         ],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d8b14f4f.webp",
-        "focusGifEnabled": true,
+        "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f9d1bee9.webp",
         "hideTitle": true,
         "id": "6c49e433-e0ae-4ad3-9610-b19c0988a58b",
         "sources": [
@@ -91,6 +92,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/fe0b254b.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/57896c34.webp",
         "hideTitle": true,
         "id": "folder-9D1C5A0D",
         "sources": [
@@ -336,6 +338,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/2ac991d7.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/6671230f.webp",
         "hideTitle": true,
         "id": "folder-F5BC0453",
         "sources": [
@@ -555,6 +558,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/82d00631.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1934d756.webp",
         "hideTitle": true,
         "id": "folder-c2fa6b78",
         "sources": [
@@ -783,6 +787,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/98d49489.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1d5e1036.webp",
         "hideTitle": true,
         "id": "folder-4a9b21f7",
         "sources": [
@@ -980,7 +985,8 @@
           }
         ],
         "tileShape": "LANDSCAPE",
-        "title": "Trending TV"
+        "title": "Trending TV",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/14114e6b.webp"
       }
     ],
     "id": "collection-UGED6TEZ",
@@ -1034,6 +1040,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/49571953.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/9f93a9fc2e02fb466eb02a7d2247cb6e/a5b604d3737fc559-49/s500x750/403804744183922f6091d48139021fc3da22f786.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f4cac092.webp",
         "hideTitle": true,
         "id": "folder-WFGY1XPD",
         "sources": [
@@ -1080,7 +1087,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Netflix",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b078f5b3.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/2f2b4e3d.webp"
       },
       {
         "catalogSources": [
@@ -1124,6 +1131,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5c86c888.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/5c5ed8bf948c5b3ca63a11544b94c720/55dbe5d6db4b66a5-bf/s500x750/d6686beaab57aa152f1b92a4562f757a1c522a2f.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/ac91ea54.webp",
         "hideTitle": true,
         "id": "folder-AT8KYHZO",
         "sources": [
@@ -1170,7 +1178,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Prime Video",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/2902111e.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f9b1d40a.webp"
       },
       {
         "catalogSources": [
@@ -1208,6 +1216,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b59babf1.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/cca7a86d443a0bc88536a2ad6ce72aec/b495f88d5c1df470-a2/s640x960/4cb9b614191d17d02c946b4ca59548cd333c06fd.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/23742ef7.webp",
         "hideTitle": true,
         "id": "folder-OA4T8NYO",
         "sources": [
@@ -1247,7 +1256,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "HBO Max",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d22a084d.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/6e4c10d3.webp"
       },
       {
         "catalogSources": [
@@ -1291,6 +1300,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b8c0d25b.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/ca6dc6d4e8a260c0c5f40c47c7334e57/eb71329b4dc482d5-50/s500x750/e9e82c5bca839be289f3d87863141ebf6d7fca28.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/003ed443.webp",
         "hideTitle": true,
         "id": "folder-8ZBZOMW9",
         "sources": [
@@ -1337,7 +1347,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Disney+",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/019d80ce.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0bdaf278.webp"
       },
       {
         "catalogSources": [
@@ -1381,6 +1391,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/4d8f0a8f.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/d717319220a7d26bdaa88e72f6f76889/d9a7a808f588d8f4-63/s500x750/959b0ca57f53153b2ca9adaf414859e45e3734e6.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/fa1c3a91.webp",
         "hideTitle": true,
         "id": "folder-IQTF27K8",
         "sources": [
@@ -1427,7 +1438,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Apple TV+",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/55516071.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5faa19d4.webp"
       },
       {
         "catalogSources": [
@@ -1471,6 +1482,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3a4d1b46.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/3a7015de27b570e421a0182a66d0a69b/0ec3a7379449b39d-2d/s1280x1920/962f0dcfa0a2458bd6bf923ff47776f2404bf43a.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/62bec8f1.webp",
         "hideTitle": true,
         "id": "folder-LN9SPMQN",
         "sources": [
@@ -1517,7 +1529,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Hulu",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/bb4b7471.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f5969fd3.webp"
       },
       {
         "catalogSources": [
@@ -1561,6 +1573,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3b626b1a.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://ingeniousguru.com/wp-content/uploads/2022/10/Paramount.gif",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8dccd458.webp",
         "hideTitle": true,
         "id": "folder-ILJM8PD0",
         "sources": [
@@ -1607,7 +1620,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Paramount+",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a7a8c448.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/ed5cde90.webp"
       },
       {
         "catalogSources": [
@@ -1627,6 +1640,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/970b675f.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/a378bf124ed7d00c8d7430cb8a9ae0cc/9e0da9dbc32641f6-b2/s1280x1920/e8c0ba2f6aadae5b6f532a177926528e94b04d68.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/31c22d38.webp",
         "hideTitle": true,
         "id": "folder-9YQK1ZF1",
         "sources": [
@@ -1645,7 +1659,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Peacock",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/fc96578f.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3b714ec3.webp"
       },
       {
         "catalogSources": [
@@ -1665,6 +1679,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/99e24ce1.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://nuvioapp.space/uploads/covers/1a03bb2e-9478-4ede-93f4-69a1a306837a.gif",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3f2d1f6c.webp",
         "hideTitle": true,
         "id": "folder-OKRSGYYC",
         "sources": [
@@ -1682,7 +1697,8 @@
           }
         ],
         "tileShape": "LANDSCAPE",
-        "title": "Shudder"
+        "title": "Shudder",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5aa18078.webp"
       },
       {
         "catalogSources": [
@@ -1702,6 +1718,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d490e713.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/9f43b185411e18d71444c9a5a5a79632/5d68ae94e9917470-70/s500x750/0871e87c17045759735ef64c26703c71b585bfb0.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/347da0c4.webp",
         "hideTitle": true,
         "id": "folder-6S0KR2JH",
         "sources": [
@@ -1721,7 +1738,8 @@
           }
         ],
         "tileShape": "LANDSCAPE",
-        "title": "MGM+"
+        "title": "MGM+",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/27431cd7.webp"
       },
       {
         "catalogSources": [
@@ -1741,6 +1759,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/9e92f9b6.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://64.media.tumblr.com/81fe52878aad139bc7b4ff5db7efc766/1e7a62d9e4b13b7a-a2/s500x750/740d23b1e14a96d02282d62190ee61e2a30aed4d.gifv",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a542f380.webp",
         "hideTitle": true,
         "id": "folder-9B3VK7AU",
         "sources": [
@@ -1758,7 +1777,8 @@
           }
         ],
         "tileShape": "LANDSCAPE",
-        "title": "Starz"
+        "title": "Starz",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/262762fd.webp"
       },
       {
         "catalogSources": [
@@ -1772,6 +1792,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/dbed63f2.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://max-streams.gleeze.com/images/Discovery.gif",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8815e841.webp",
         "hideTitle": true,
         "id": "folder-5H64D1DG",
         "sources": [
@@ -1804,7 +1825,7 @@
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/129a4038.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://i.postimg.cc/Y2DYwj4f/Crunchyrroll-50FPS.gif",
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a691d7d5.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/52809680.webp",
         "hideTitle": true,
         "id": "cf7a3d79-0cc9-42c5-b460-d2e3b838ecfc",
         "sources": [
@@ -1958,7 +1979,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "NBC"
+        "title": "NBC",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7674b78f.webp"
       },
       {
         "catalogSources": [],
@@ -1995,7 +2017,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "CBS"
+        "title": "CBS",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/4fddc3d8.webp"
       },
       {
         "catalogSources": [],
@@ -2032,7 +2055,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "ABC"
+        "title": "ABC",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/9290f56c.webp"
       },
       {
         "catalogSources": [],
@@ -2069,7 +2093,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "FOX"
+        "title": "FOX",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/15425f58.webp"
       },
       {
         "catalogSources": [],
@@ -2106,7 +2131,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "The CW"
+        "title": "The CW",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/fae4e02e.webp"
       },
       {
         "catalogSources": [],
@@ -2217,7 +2243,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "Showtime"
+        "title": "Showtime",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d8bcefbe.webp"
       },
       {
         "catalogSources": [],
@@ -2291,7 +2318,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "FX"
+        "title": "FX",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/6857bc3a.webp"
       },
       {
         "catalogSources": [],
@@ -2328,7 +2356,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "AMC"
+        "title": "AMC",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/ee0ada76.webp"
       },
       {
         "catalogSources": [],
@@ -2402,7 +2431,8 @@
           }
         ],
         "tileShape": "POSTER",
-        "title": "USA Network"
+        "title": "USA Network",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/63fdbf3e.webp"
       },
       {
         "catalogSources": [],
@@ -3046,8 +3076,9 @@
     "folders": [
       {
         "catalogSources": [],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0dcc7cb5.webp",
+        "coverImageUrl": "https://cdn.jsdelivr.net/gh/ImKaptain/nuvio-assets@main/assets/images/0dcc7cb5.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/58993eb3.webp",
         "hideTitle": true,
         "id": "folder-JRWZVYWG",
         "sources": [
@@ -3164,6 +3195,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/044f190b.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://i.imgur.com/pXyhSQI.jpeg",
         "hideTitle": true,
         "id": "folder-CSJVDVSC",
         "sources": [
@@ -3280,6 +3312,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3889413a.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/963bb672.webp",
         "hideTitle": true,
         "id": "folder-K8CIZ3LO",
         "sources": [
@@ -3396,6 +3429,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/dd9ad745.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/692aa010.webp",
         "hideTitle": true,
         "id": "folder-AP4ISXTE",
         "sources": [
@@ -3512,6 +3546,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/2f260323.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d7af13c0.webp",
         "hideTitle": true,
         "id": "folder-IWC8T1WM",
         "sources": [
@@ -3628,6 +3663,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0e365fbf.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/6d9e47bb.webp",
         "hideTitle": true,
         "id": "folder-DTEQHREL",
         "sources": [
@@ -3744,6 +3780,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/588fb911.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f8ca8dc8.webp",
         "hideTitle": true,
         "id": "folder-6DUG1MQF",
         "sources": [
@@ -3860,6 +3897,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/968a1d2b.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/dd206702.webp",
         "hideTitle": true,
         "id": "folder-8Z2DZVUO",
         "sources": [
@@ -3976,6 +4014,8 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/18afcc2c.webp",
         "focusGifEnabled": false,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/genres/backdrop/family.jpg?raw=true",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d64ad84f.webp",
         "hideTitle": true,
         "id": "folder-FWKG65UR",
         "sources": [
@@ -4092,6 +4132,8 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/28e8ac4d.webp",
         "focusGifEnabled": false,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/genres/backdrop/fantasy.jpg?raw=true",
+        "heroBackdropUrl": "https://i.imgur.com/SKtPUug.jpeg",
         "hideTitle": true,
         "id": "folder-ZYDJZBEV",
         "sources": [
@@ -4208,6 +4250,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b7aa7fe1.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/2653fb30.webp",
         "hideTitle": true,
         "id": "folder-LCRKWAHO",
         "sources": [
@@ -4320,6 +4363,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8442367a.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d3c0190d.webp",
         "hideTitle": true,
         "id": "folder-W7VQ4ZGQ",
         "sources": [
@@ -4432,6 +4476,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a6450526.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7e94bd21.webp",
         "hideTitle": true,
         "id": "folder-KVW3FYE5",
         "sources": [
@@ -4548,6 +4593,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/eece1656.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8be0dde8.webp",
         "hideTitle": true,
         "id": "folder-KQEZGAMF",
         "sources": [
@@ -4612,6 +4658,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/40c45c79.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/59e148a9.webp",
         "hideTitle": true,
         "id": "folder-GXG1NG9E",
         "sources": [
@@ -4728,6 +4775,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1f890849.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/c1aaed43.webp",
         "hideTitle": true,
         "id": "folder-8B3PEI1Y",
         "sources": [
@@ -4844,6 +4892,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0a784546.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f185684c.webp",
         "hideTitle": true,
         "id": "folder-X9YZCXBH",
         "sources": [
@@ -4960,6 +5009,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/10676a38.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/9eff57fe.webp",
         "hideTitle": true,
         "id": "folder-SY0BJAAJ",
         "sources": [
@@ -12599,6 +12649,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/67a54fdf.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7ac7fd24.webp",
         "hideTitle": true,
         "id": "folder-CYHIQOKR",
         "sources": [
@@ -12640,13 +12691,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Marvel Studios",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/e504dea1.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/cd5cf07e.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/eb3ea02f.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7342cb15.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/25eddb95.webp",
         "hideTitle": true,
         "id": "folder-J66S9Y7E",
         "sources": [
@@ -12688,13 +12739,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "DC",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/31098372.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/4c44e429.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/399ea613.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/e865d3de.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/c0f5a6ef.webp",
         "hideTitle": true,
         "id": "folder-4OZG50Y4",
         "sources": [
@@ -12735,13 +12786,14 @@
           }
         ],
         "tileShape": "LANDSCAPE",
-        "title": "Walt Disney Studio"
+        "title": "Walt Disney Studio",
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0e12e576.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/01ca52c7.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a331ad15.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/542cd1b8.webp",
         "hideTitle": true,
         "id": "folder-2XGVUWET",
         "sources": [
@@ -12783,13 +12835,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Pixar",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5cd953c9.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5467bf25.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/532da5e0.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7e7ea72e.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/91b18b9b.webp",
         "hideTitle": true,
         "id": "folder-2KA1KP6V",
         "sources": [
@@ -12831,12 +12883,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Warner Bros. Entertainment",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f93d6f5b.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0fef5ba4.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/50e0231c.webp",
         "focusGifEnabled": false,
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5915d4c6.webp",
         "hideTitle": true,
         "id": "folder-IAL16XW3",
         "sources": [
@@ -12878,13 +12931,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Universal Pictures",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0e79f769.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/407360a1.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f0b7cba7.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/cd5048c9.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b90a382a.webp",
         "hideTitle": true,
         "id": "folder-A59XSVAT",
         "sources": [
@@ -12926,13 +12979,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Paramount Pictures",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d01d6f22.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5b28dc9b.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a113a652.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/e397ffbe.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0e6fd0ac.webp",
         "hideTitle": true,
         "id": "folder-ZDYYVMWR",
         "sources": [
@@ -12974,14 +13027,14 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "20th Century Studios",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/60fbe10a.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/ca851ecd.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/59095acb.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://i.pinimg.com/originals/83/31/f1/8331f1e98bf24453a0906387669450e6.gif",
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0d75e42d.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1b766639.webp",
         "hideTitle": true,
         "id": "folder-4ZV8HZGY",
         "sources": [
@@ -12994,7 +13047,7 @@
             "provider": "tmdb",
             "sortBy": "primary_release_date.desc",
             "title": "Recent Movies",
-            "tmdbId": 293354,
+            "tmdbId": 41077,
             "tmdbSourceType": "COMPANY"
           },
           {
@@ -13005,7 +13058,7 @@
             "provider": "tmdb",
             "sortBy": "popularity.desc",
             "title": "Popular Movies",
-            "tmdbId": 293354,
+            "tmdbId": 41077,
             "tmdbSourceType": "COMPANY"
           },
           {
@@ -13017,20 +13070,20 @@
             "provider": "tmdb",
             "sortBy": "vote_average.desc",
             "title": "Top Rated Movies",
-            "tmdbId": 293354,
+            "tmdbId": 41077,
             "tmdbSourceType": "COMPANY"
           }
         ],
         "tileShape": "LANDSCAPE",
         "title": "A24",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/c1ea5392.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f58b9965.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f85766ed.webp",
         "focusGifEnabled": true,
         "focusGifUrl": "https://iili.io/BNYw4iF.gif",
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/fc815184.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/c129fb77.webp",
         "hideTitle": true,
         "id": "folder-BNC84SJ4",
         "sources": [
@@ -13072,13 +13125,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Blumhouse Productions",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/9b486a0b.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a2d634a7.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/07b05be8.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/89640c66.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/e81aee1c.webp",
         "hideTitle": true,
         "id": "folder-79DVGTP9",
         "sources": [
@@ -13126,7 +13179,7 @@
         "catalogSources": [],
         "coverImageUrl": "https://i.imgur.com/HK9oP0V.png",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b5e8b6f1.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d51b7c0c.webp",
         "hideTitle": true,
         "id": "folder-9ZZK6A6C",
         "sources": [
@@ -13168,13 +13221,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "DreamWorks Pictures",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1a357378.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/bc4d0674.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f878e71e.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/9a5b7f4a.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5001a61f.webp",
         "hideTitle": true,
         "id": "folder-HIU1YFQA",
         "sources": [
@@ -13216,13 +13269,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Lionsgate",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0912ead5.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1a3665ce.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/434d7008.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/858ec1a0.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/60f37169.webp",
         "hideTitle": true,
         "id": "folder-V0MRWXHJ",
         "sources": [
@@ -13264,13 +13317,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "MGM",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/44f324b0.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7307bd69.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/screenshot_2024_08_18_at_10207pm_2.png",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/fc815184.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8c44ae22.webp",
         "hideTitle": true,
         "id": "folder-5VIHLY7Y",
         "sources": [
@@ -13312,20 +13365,19 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "New Line Cinema",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/c34d683d.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8b14f5c3.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5072d59e.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a4490434.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/466bfa4e.webp",
         "hideTitle": true,
         "id": "folder-KIRXHA4A",
         "sources": [
           {
             "filters": {
-              "voteCountGte": 10,
-              "withOriginalLanguage": "en"
+              "voteCountGte": 10
             },
             "mediaType": "MOVIE",
             "provider": "tmdb",
@@ -13335,9 +13387,7 @@
             "tmdbSourceType": "COMPANY"
           },
           {
-            "filters": {
-              "withOriginalLanguage": "en"
-            },
+            "filters": {},
             "mediaType": "MOVIE",
             "provider": "tmdb",
             "sortBy": "popularity.desc",
@@ -13347,8 +13397,7 @@
           },
           {
             "filters": {
-              "voteCountGte": 200,
-              "withOriginalLanguage": "en"
+              "voteCountGte": 200
             },
             "mediaType": "MOVIE",
             "provider": "tmdb",
@@ -13360,13 +13409,13 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Studio Ghibli",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/a8243815.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/ba351a99.webp"
       },
       {
         "catalogSources": [],
         "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/ff1124ea.webp",
         "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/035c0d01.webp",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/8eab5291.webp",
         "hideTitle": true,
         "id": "folder-ZVTA71KC",
         "sources": [
@@ -13408,7 +13457,7 @@
         ],
         "tileShape": "LANDSCAPE",
         "title": "Lucasfilm Ltd.",
-        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/63a9b35b.webp"
+        "titleLogoUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/61c42f64.webp"
       }
     ],
     "id": "collection-XB14SDA2",
@@ -13429,8 +13478,9 @@
             "genre": null
           }
         ],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3b3668ad.webp",
-        "focusGifEnabled": false,
+        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f07d1484.webp",
+        "focusGifEnabled": true,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/decades/focused/2020s.gif?raw=true",
         "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5380d085.webp",
         "hideTitle": true,
         "id": "folder-N0O4TY4I",
@@ -13454,8 +13504,9 @@
             "genre": null
           }
         ],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5838a9e7.webp",
-        "focusGifEnabled": false,
+        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/9cb570e8.webp",
+        "focusGifEnabled": true,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/decades/focused/2010s.gif?raw=true",
         "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/b9998ca6.webp",
         "hideTitle": true,
         "id": "folder-RTDIH0YV",
@@ -13479,9 +13530,10 @@
             "genre": null
           }
         ],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/f76c54c9.webp",
-        "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/d6097137.webp",
+        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/4449e62a.webp",
+        "focusGifEnabled": true,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/decades/focused/2000s.gif?raw=true",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5284176b.webp",
         "hideTitle": true,
         "id": "folder-NEK4LQ1T",
         "sources": [
@@ -13504,9 +13556,10 @@
             "genre": null
           }
         ],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/1f7983d2.webp",
-        "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/09b28d8b.webp",
+        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/712f6a02.webp",
+        "focusGifEnabled": true,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/decades/focused/1990s.gif?raw=true",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/716e420c.webp",
         "hideTitle": true,
         "id": "folder-VMYWM6ZK",
         "sources": [
@@ -13529,9 +13582,10 @@
             "genre": null
           }
         ],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/0ff84489.webp",
-        "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/05ef580b.webp",
+        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/3583b980.webp",
+        "focusGifEnabled": true,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/decades/focused/1980s.gif?raw=true",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/5a84d318.webp",
         "hideTitle": true,
         "id": "folder-8CFPI44Q",
         "sources": [
@@ -13554,9 +13608,10 @@
             "genre": null
           }
         ],
-        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/95656f54.webp",
-        "focusGifEnabled": false,
-        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/dd90aacc.webp",
+        "coverImageUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/7ab327a6.webp",
+        "focusGifEnabled": true,
+        "focusGifUrl": "https://github.com/luckynumb3rs/stremio-perfect-setup/blob/main/collections/decades/focused/1970s.gif?raw=true",
+        "heroBackdropUrl": "https://imkaptain.github.io/nuvio-assets/assets/images/afa4019c.webp",
         "hideTitle": true,
         "id": "folder-FXPDJY5T",
         "sources": [
