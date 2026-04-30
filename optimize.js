@@ -12,20 +12,24 @@ const OUTPUT_FILE = 'optimized_config.json';
 const ASSETS_DIR = path.join(__dirname, 'assets', 'images');
 
 // Keys to search for and their respective optimization rules
+// Note: 'focusGifUrl' is intentionally removed so it gets completely ignored!
 const IMAGE_KEYS = [
   'coverImageUrl',
   'heroBackdropUrl',
   'titleLogoUrl',
   'backdropImageUrl'
 ];
+
 // Ensure the local assets/images directory exists
 if (!fs.existsSync(ASSETS_DIR)) {
   fs.mkdirSync(ASSETS_DIR, { recursive: true });
 }
+
 // Helper: Generates a short 8-character MD5 hash of the original URL
 function generateShortHash(url) {
   return crypto.createHash('md5').update(url).digest('hex').slice(0, 8);
 }
+
 // Helper: Downloads an image as a Buffer
 async function downloadImage(url) {
   try {
@@ -41,6 +45,7 @@ async function downloadImage(url) {
     return null;
   }
 }
+
 // Recursive function to traverse the JSON and process matching keys
 async function processJSON(obj) {
   if (Array.isArray(obj)) {
@@ -51,17 +56,22 @@ async function processJSON(obj) {
   else if (obj !== null && typeof obj === 'object') {
     for (const key of Object.keys(obj)) {
       const value = obj[key];
+      
       if (IMAGE_KEYS.includes(key) && typeof value === 'string' && value.match(/^https?:\/\//)) {
         
+        // Skip logic: if the URL already has your github username, ignore it
         if (value.includes(GITHUB_USERNAME)) {
           console.log(`[SKIPPING] Already optimized URL: ${value}`);
           continue;
         }
+
         const hash = generateShortHash(value);
-        const fileName = `${hash}.avif`; // Switched to .avif
+        const fileName = `${hash}.webp`; // Reverted to .webp for TV compatibility
         const filePath = path.join(ASSETS_DIR, fileName);
         
-        const newUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_USERNAME}/${REPO_NAME}@main/assets/images/${fileName}`;
+        // Utilizing the new GitHub Pages CDN
+        const newUrl = `https://${GITHUB_USERNAME}.github.io/${REPO_NAME}/assets/images/${fileName}`;
+        
         if (!fs.existsSync(filePath)) {
           console.log(`[PROCESSING] ${key}: ${value}`);
           const imageBuffer = await downloadImage(value);
@@ -70,6 +80,7 @@ async function processJSON(obj) {
             try {
               // 1. Initialize sharp with animation support
               let pipeline = sharp(imageBuffer, { animated: true });
+              
               // 2. Apply Resizing Logic
               if (key === 'coverImageUrl' || key === 'titleLogoUrl') {
                 // High-quality UI thumbnails
@@ -79,10 +90,9 @@ async function processJSON(obj) {
                 // Cinematic backdrops
                 pipeline = pipeline.resize({ width: 1280, withoutEnlargement: true });
               }
-              // focusGifUrl is ignored by the if/else and remains original size
-              // 3. Convert to AVIF (Superior compression)
-              // quality: 50 in AVIF is roughly equivalent to 80 in WebP but much smaller
-              await pipeline.avif({ quality: 50 }).toFile(filePath);
+              
+              // 3. Convert to WebP (Hardware decoder friendly)
+              await pipeline.webp({ animated: true }).toFile(filePath);
                 
               console.log(`[SAVED] ${fileName} (${key})`);
             } catch (err) {
@@ -92,6 +102,8 @@ async function processJSON(obj) {
         } else {
           console.log(`[CACHED] ${fileName}`);
         }
+        
+        // Inject the newly formatted URL back into the JSON
         obj[key] = newUrl;
       } else {
         await processJSON(value);
@@ -99,6 +111,7 @@ async function processJSON(obj) {
     }
   }
 }
+
 async function main() {
   try {
     if (!fs.existsSync(INPUT_FILE)) {
@@ -108,14 +121,17 @@ async function main() {
     console.log(`Loading ${INPUT_FILE}...`);
     const rawData = fs.readFileSync(INPUT_FILE, 'utf-8');
     const config = JSON.parse(rawData);
-    console.log('Optimizing images (AVIF + Resizing)...');
+    
+    console.log('Optimizing images (WebP + Resizing)...');
     await processJSON(config);
+    
     console.log(`Writing output to ${OUTPUT_FILE}...`);
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(config, null, 2), 'utf-8');
     
-    console.log('Done! All assets are now resized AVIFs.');
+    console.log('Done! All assets are now resized WebPs and linked via GitHub Pages.');
   } catch (error) {
     console.error('[FATAL] An unexpected error occurred:', error);
   }
 }
+
 main();
