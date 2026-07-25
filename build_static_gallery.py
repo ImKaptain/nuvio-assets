@@ -90,6 +90,7 @@ def scan_assets():
             if item_key not in grouped:
                 w, h, ratio, orientation = get_image_dimensions(full_file_path)
                 grouped[item_key] = {
+                    'id': f"{category}_{subfolder}_{clean_name}".replace(' ', '_'),
                     'title': clean_name.replace('_', ' '),
                     'type': asset_type,  # 'covers' | 'backdrops' | 'logos'
                     'category': category,
@@ -131,12 +132,13 @@ def generate_gallery_html(assets):
   <title>Nuvio Art Portfolio • Official Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {{
       --bg-dark: #070709;
       --bg-header: rgba(10, 10, 14, 0.88);
       --accent: #8b5cf6;
+      --accent-hover: #7c3aed;
       --accent-glow: rgba(139, 92, 246, 0.4);
       --text-main: #f9fafb;
       --text-muted: #9ca3af;
@@ -375,7 +377,7 @@ def generate_gallery_html(assets):
       transition: opacity 0.3s ease;
     }}
 
-    /* HOVER OVERLAY (ALL TEXT & BUTTONS HIDDEN UNTIL HOVER) */
+    /* HOVER OVERLAY (ALL TEXT & DUAL COPY BUTTONS HIDDEN UNTIL HOVER) */
     .hover-overlay {{
       position: absolute;
       inset: 0;
@@ -437,31 +439,242 @@ def generate_gallery_html(assets):
       color: #d1d5db;
     }}
 
-    .copy-btn {{
-      background: var(--accent);
+    /* DUAL COPY BUTTONS GROUP ON HOVER */
+    .dual-copy-group {{
+      display: flex;
+      gap: 0.4rem;
+    }}
+
+    .copy-btn-sm {{
+      flex: 1;
+      background: rgba(139, 92, 246, 0.25);
       color: #fff;
-      border: none;
-      padding: 0.55rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      transition: background 0.2s ease, transform 0.15s ease;
+      gap: 0.3rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }}
+
+    .copy-btn-sm:hover {{
+      background: var(--accent);
+      border-color: var(--accent);
       box-shadow: 0 4px 12px var(--accent-glow);
     }}
 
-    .copy-btn:hover {{
-      background: #7c3aed;
-      transform: translateY(-1px);
+    .copy-btn-sm.copied {{
+      background: #10b981;
+      border-color: #10b981;
     }}
 
-    .copy-btn.copied {{
+    /* --- LIGHTBOX DETAIL MODAL --- */
+    .modal-backdrop {{
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }}
+
+    .modal-backdrop.open {{
+      opacity: 1;
+      pointer-events: auto;
+    }}
+
+    .modal-card {{
+      background: #111116;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+    }}
+
+    @media (max-width: 900px) {{
+      .modal-card {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+
+    .modal-close {{
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 20;
+      transition: all 0.2s ease;
+    }}
+
+    .modal-close:hover {{
+      background: rgba(255, 255, 255, 0.2);
+    }}
+
+    .modal-image-area {{
+      background: #000;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }}
+
+    .modal-image-area img {{
+      max-width: 100%;
+      max-height: 65vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }}
+
+    .view-toggle-bar {{
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.3rem;
+      border-radius: 8px;
+    }}
+
+    .view-toggle-btn {{
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }}
+
+    .view-toggle-btn.active {{
+      background: var(--accent);
+      color: #fff;
+    }}
+
+    .modal-info-area {{
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-left: 1px solid var(--border);
+    }}
+
+    .modal-title {{
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }}
+
+    .modal-meta-list {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }}
+
+    .copy-section {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }}
+
+    .modal-copy-btn {{
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }}
+
+    .modal-copy-btn:hover {{
+      background: var(--accent);
+      color: #fff;
+    }}
+
+    .modal-copy-btn.copied {{
       background: #10b981;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      color: #fff;
+      border-color: #10b981;
+    }}
+
+    .related-section {{
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }}
+
+    .related-title {{
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }}
+
+    .related-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+    }}
+
+    .related-thumb {{
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }}
+
+    .related-thumb:hover {{
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }}
+
+    .related-thumb img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }}
 
     footer {{
@@ -519,6 +732,43 @@ def generate_gallery_html(assets):
     <div class="masonry-grid" id="galleryGrid"></div>
   </main>
 
+  <!-- LIGHTBOX DETAIL MODAL -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-image-area">
+        <img id="modalPreviewImg" src="" alt="Preview">
+        <div class="view-toggle-bar">
+          <button class="view-toggle-btn active" id="togglePngBtn">Base PNG</button>
+          <button class="view-toggle-btn" id="toggleGifBtn">Focus GIF</button>
+        </div>
+      </div>
+      <div class="modal-info-area">
+        <div>
+          <div class="modal-title" id="modalTitle">Title</div>
+          <div class="modal-meta-list">
+            <span id="modalMetaCategory">Category</span>
+            <span id="modalMetaDimensions">Dimensions</span>
+          </div>
+        </div>
+
+        <div class="copy-section">
+          <button class="modal-copy-btn" id="modalCopyPngBtn">
+            <span>📋 Copy Base PNG URL</span>
+          </button>
+          <button class="modal-copy-btn" id="modalCopyGifBtn">
+            <span>✨ Copy Focus GIF URL</span>
+          </button>
+        </div>
+
+        <div class="related-section">
+          <div class="related-title">Related Covers & Versions</div>
+          <div class="related-grid" id="relatedGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>Nuvio Mega Collection • Official Asset Portfolio hosted on GitHub Pages</p>
   </footer>
@@ -528,6 +778,7 @@ def generate_gallery_html(assets):
 
     let activeType = 'covers';  // 'covers' | 'backdrops' | 'logos' | 'archive'
     let activeSub = 'all';     // sub-filter for covers
+    let activeModalItem = null;
 
     const grid = document.getElementById('galleryGrid');
     const searchInput = document.getElementById('searchInput');
@@ -535,6 +786,19 @@ def generate_gallery_html(assets):
     const navTabs = document.querySelectorAll('.nav-tab');
     const subBtns = document.querySelectorAll('.sub-btn');
     const subFilterBar = document.getElementById('subFilterBar');
+
+    // Modal elements
+    const detailModal = document.getElementById('detailModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalPreviewImg = document.getElementById('modalPreviewImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMetaCategory = document.getElementById('modalMetaCategory');
+    const modalMetaDimensions = document.getElementById('modalMetaDimensions');
+    const modalCopyPngBtn = document.getElementById('modalCopyPngBtn');
+    const modalCopyGifBtn = document.getElementById('modalCopyGifBtn');
+    const togglePngBtn = document.getElementById('togglePngBtn');
+    const toggleGifBtn = document.getElementById('toggleGifBtn');
+    const relatedGrid = document.getElementById('relatedGrid');
 
     // Update Counts (STRICT CLASSIFICATION)
     const coversCount = ASSETS.filter(a => a.type === 'covers' && !a.is_gallery).length;
@@ -607,9 +871,12 @@ def generate_gallery_html(assets):
                 <div class="card-title">${{item.title}}</div>
                 <div class="card-sub">${{item.category}} ${{item.subfolder ? '• ' + item.subfolder : ''}}</div>
               </div>
-              <button class="copy-btn" data-url="${{baseSrc}}">
-                <span>📋 Copy Raw URL</span>
-              </button>
+              <div class="dual-copy-group">
+                <button class="copy-btn-sm copy-png-btn" data-url="${{baseSrc}}">
+                  <span>📋 PNG</span>
+                </button>
+                ${{item.hover_url ? `<button class="copy-btn-sm copy-gif-btn" data-url="${{item.hover_url}}"><span>✨ GIF</span></button>` : ''}}
+              </div>
             </div>
           </div>
         `;
@@ -622,21 +889,126 @@ def generate_gallery_html(assets):
           img.src = baseSrc;
         }});
 
-        const copyBtn = card.querySelector('.copy-btn');
-        copyBtn.addEventListener('click', (e) => {{
-          e.stopPropagation();
-          navigator.clipboard.writeText(baseSrc);
-          copyBtn.classList.add('copied');
-          copyBtn.querySelector('span').textContent = '✓ Copied!';
-          setTimeout(() => {{
-            copyBtn.classList.remove('copied');
-            copyBtn.querySelector('span').textContent = '📋 Copy Raw URL';
-          }}, 2000);
+        // Copy PNG button
+        const copyPngBtn = card.querySelector('.copy-png-btn');
+        if (copyPngBtn) {{
+          copyPngBtn.addEventListener('click', (e) => {{
+            e.stopPropagation();
+            navigator.clipboard.writeText(baseSrc);
+            copyPngBtn.classList.add('copied');
+            copyPngBtn.querySelector('span').textContent = '✓ Copied!';
+            setTimeout(() => {{
+              copyPngBtn.classList.remove('copied');
+              copyPngBtn.querySelector('span').textContent = '📋 PNG';
+            }}, 2000);
+          }});
+        }}
+
+        // Copy GIF button
+        const copyGifBtn = card.querySelector('.copy-gif-btn');
+        if (copyGifBtn) {{
+          copyGifBtn.addEventListener('click', (e) => {{
+            e.stopPropagation();
+            navigator.clipboard.writeText(item.hover_url);
+            copyGifBtn.classList.add('copied');
+            copyGifBtn.querySelector('span').textContent = '✓ Copied!';
+            setTimeout(() => {{
+              copyGifBtn.classList.remove('copied');
+              copyGifBtn.querySelector('span').textContent = '✨ GIF';
+            }}, 2000);
+          }});
+        }}
+
+        // Open Detail Modal on Card Click
+        card.addEventListener('click', () => {{
+          openModal(item);
         }});
 
         grid.appendChild(card);
       }});
     }}
+
+    function openModal(item) {{
+      activeModalItem = item;
+      modalTitle.textContent = item.title;
+      modalMetaCategory.textContent = `Category: ${{item.category}} ${{item.subfolder ? '• ' + item.subfolder : ''}}`;
+      modalMetaDimensions.textContent = `Dimensions: ${{item.width}} x ${{item.height}} (${{item.orientation}})`;
+      modalPreviewImg.src = item.base_url;
+
+      togglePngBtn.classList.add('active');
+      toggleGifBtn.classList.remove('active');
+
+      if (item.hover_url) {{
+        toggleGifBtn.style.display = 'inline-block';
+        modalCopyGifBtn.style.display = 'flex';
+      }} else {{
+        toggleGifBtn.style.display = 'none';
+        modalCopyGifBtn.style.display = 'none';
+      }}
+
+      // Populate Related Assets
+      relatedGrid.innerHTML = '';
+      const related = ASSETS.filter(a => 
+        a.id !== item.id && 
+        (a.category === item.category || (a.subfolder && a.subfolder === item.subfolder))
+      ).slice(0, 6);
+
+      related.forEach(rel => {{
+        const thumb = document.createElement('div');
+        thumb.className = 'related-thumb';
+        thumb.title = rel.title;
+        thumb.innerHTML = `<img src="${{rel.base_url}}" alt="${{rel.title}}">`;
+        thumb.addEventListener('click', () => openModal(rel));
+        relatedGrid.appendChild(thumb);
+      }});
+
+      detailModal.classList.add('open');
+    }}
+
+    modalClose.addEventListener('click', () => detailModal.classList.remove('open'));
+    detailModal.addEventListener('click', (e) => {{
+      if (e.target === detailModal) detailModal.classList.remove('open');
+    }});
+
+    togglePngBtn.addEventListener('click', () => {{
+      if (activeModalItem) {{
+        modalPreviewImg.src = activeModalItem.base_url;
+        togglePngBtn.classList.add('active');
+        toggleGifBtn.classList.remove('active');
+      }}
+    }});
+
+    toggleGifBtn.addEventListener('click', () => {{
+      if (activeModalItem && activeModalItem.hover_url) {{
+        modalPreviewImg.src = activeModalItem.hover_url;
+        toggleGifBtn.classList.add('active');
+        togglePngBtn.classList.remove('active');
+      }}
+    }});
+
+    modalCopyPngBtn.addEventListener('click', () => {{
+      if (activeModalItem) {{
+        navigator.clipboard.writeText(activeModalItem.base_url);
+        modalCopyPngBtn.classList.add('copied');
+        modalCopyPngBtn.querySelector('span').textContent = '✓ Copied Base PNG!';
+        setTimeout(() => {{
+          modalCopyPngBtn.classList.remove('copied');
+          modalCopyPngBtn.querySelector('span').textContent = '📋 Copy Base PNG URL';
+        }}, 2000);
+      }}
+    }});
+
+    modalCopyGifBtn.addEventListener('click', () => {{
+      if (activeModalItem && activeModalItem.hover_url) {{
+        navigator.clipboard.writeText(activeModalItem.hover_url);
+        modalCopyGifBtn.classList.add('copied');
+        modalCopyGifBtn.querySelector('span').textContent = '✓ Copied Focus GIF!';
+        setTimeout(() => {{
+          modalCopyGifBtn.classList.remove('copied');
+          modalCopyGifBtn.querySelector('span').textContent = '✨ Copy Focus GIF URL';
+        }}, 2000);
+      }}
+    }});
 
     navTabs.forEach(tab => {{
       tab.addEventListener('click', () => {{
@@ -682,7 +1054,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean zero-clipping Masonry Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Dual Copy & Lightbox Detail Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
