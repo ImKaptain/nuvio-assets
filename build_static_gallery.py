@@ -13,6 +13,8 @@ def classify_asset_type(root_folder, file_path):
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
     elif (lower_root.startswith('nuvio_backdrops_') or 
+          lower_root == 'collections' or 
+          lower_root == 'external_cache' or 
           'backdrop' in lower_path or 
           'backdrop' in lower_root or 
           'background' in lower_path or 
@@ -321,26 +323,20 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* MASONRY / FLEXIBLE CANVAS MAPPING GRID */
-    .masonry-columns {{
-      column-count: 5;
-      column-gap: 1.25rem;
+    /* TUMBLR PUZZLE ROW LAYOUT (NORMALIZED ROW HEIGHT) */
+    .tumblr-puzzle-grid {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
     }}
 
-    @media (max-width: 1400px) {{
-      .masonry-columns {{ column-count: 4; }}
-    }}
-    @media (max-width: 1024px) {{
-      .masonry-columns {{ column-count: 3; }}
-    }}
-    @media (max-width: 640px) {{
-      .masonry-columns {{ column-count: 2; }}
-    }}
-
-    /* ZERO-CLUTTER ORIENTATION-MATCHED PHOTO CARD */
+    /* ZERO-CLUTTER TUMBLR PHOTO TILE */
     .photo-card {{
-      break-inside: avoid;
-      margin-bottom: 1.25rem;
+      height: 260px;
+      flex-grow: var(--ratio, 1.778);
+      flex-shrink: 1;
+      flex-basis: calc(260px * var(--ratio, 1.778));
+      max-width: 100%;
       position: relative;
       background: #050508;
       border-radius: var(--radius);
@@ -348,7 +344,6 @@ def generate_gallery_html(assets):
       cursor: pointer;
       border: 1px solid var(--border);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-      width: 100%;
     }}
 
     .photo-card:hover {{
@@ -359,12 +354,13 @@ def generate_gallery_html(assets):
 
     .photo-card img {{
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
       transition: opacity 0.3s ease;
     }}
 
-    /* HOVER OVERLAY (ALL TEXT & BUTTONS ARE HIDDEN UNTIL HOVER) */
+    /* HOVER OVERLAY (ALL TEXT & BUTTONS HIDDEN UNTIL HOVER) */
     .hover-overlay {{
       position: absolute;
       inset: 0;
@@ -506,7 +502,7 @@ def generate_gallery_html(assets):
 
   <main>
     <div class="status-summary" id="statsSummary">Loading gallery...</div>
-    <div class="masonry-columns" id="galleryGrid"></div>
+    <div class="tumblr-puzzle-grid" id="galleryGrid"></div>
   </main>
 
   <footer>
@@ -576,6 +572,9 @@ def generate_gallery_html(assets):
         const card = document.createElement('div');
         card.className = 'photo-card';
 
+        const ratio = item.aspect_ratio || 1.778;
+        card.style.setProperty('--ratio', ratio);
+
         const baseSrc = item.base_url;
         const hoverSrc = item.hover_url || item.base_url;
 
@@ -584,7 +583,7 @@ def generate_gallery_html(assets):
         else if (item.is_gallery) badgeText = '📸 Archive';
 
         card.innerHTML = `
-          <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy" style="aspect-ratio: ${{item.aspect_ratio || 'auto'}};">
+          <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy">
           <div class="hover-overlay">
             <div class="overlay-top">
               <span class="overlay-tag ${{item.is_dynamic ? 'dynamic-tag' : ''}}">${{badgeText}}</span>
@@ -669,7 +668,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Tumblr-style Portfolio HTML with orientation canvas matching at: {out_file}")
+    print(f"Successfully generated clean Tumblr Puzzle Grid Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
