@@ -3,26 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JUST GIVE ME THE F*CKING ASSETS • Nuvio Art Portfolio</title>
+  <title>Kaptain's Mega Collection of Assets • Official Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-main: #ffffff;
-      --bg-card: #f9fafb;
-      --text-main: #000000;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
-      --accent: #000000;
-      --accent-purple: #8b5cf6;
-      --radius: 10px;
+      --bg-dark: #070709;
+      --bg-header: rgba(10, 10, 14, 0.92);
+      --bg-card: #101015;
+      --accent: #8b5cf6;
+      --accent-pink: #ec4899;
+      --accent-glow: rgba(139, 92, 246, 0.35);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius: 12px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg-main);
+      background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
       min-height: 100vh;
@@ -31,9 +33,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* --- EDITORIAL HEADER BAR --- */
+    /* --- SLEEK DARK HEADER BAR --- */
     header {
-      background: #ffffff;
+      background: var(--bg-header);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -43,143 +47,116 @@
     .header-top {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 0.85rem 2rem;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1.5rem;
     }
 
-    .header-left {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
-    }
-
-    .brand-asterisk {
-      font-size: 2rem;
-      font-weight: 900;
-      line-height: 1;
+      gap: 0.85rem;
       text-decoration: none;
-      color: #000;
-      transition: transform 0.3s ease;
+      color: var(--text-main);
     }
 
-    .brand-asterisk:hover {
-      transform: rotate(90deg);
+    .brand-badge {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-pink));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 18px var(--accent-glow);
     }
 
-    /* CATEGORIES DROPDOWN MENU */
-    .dropdown-container {
-      position: relative;
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff;
     }
 
-    .cat-dropdown-btn {
+    /* HEADER PRIMARY TABS */
+    .primary-nav {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .nav-tab {
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
+      color: var(--text-muted);
       font-family: 'Outfit', sans-serif;
       font-size: 0.88rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: #000;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.4rem 0.6rem;
-      border-radius: 4px;
-      transition: background 0.2s;
-    }
-
-    .cat-dropdown-btn:hover {
-      background: #f3f4f6;
-    }
-
-    .cat-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      margin-top: 0.4rem;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-      width: 220px;
-      display: none;
-      flex-direction: column;
-      padding: 0.4rem 0;
-      z-index: 200;
-    }
-
-    .cat-menu.open {
-      display: flex;
-    }
-
-    .cat-item {
-      background: transparent;
-      border: none;
-      text-align: left;
-      padding: 0.6rem 1rem;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem;
       font-weight: 700;
-      color: #374151;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      transition: all 0.15s ease;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
     }
 
-    .cat-item:hover, .cat-item.active {
-      background: #000;
-      color: #fff;
+    .nav-tab:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
     }
 
-    .browse-all-btn {
-      background: #000000;
+    .nav-tab.active {
       color: #ffffff;
-      border: none;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      padding: 0.5rem 1.1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s ease;
+      background: rgba(139, 92, 246, 0.2);
+      border-color: rgba(139, 92, 246, 0.4);
     }
 
-    .browse-all-btn:hover {
-      background: #333333;
+    .nav-badge {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 10px;
+      font-weight: 600;
     }
 
-    .header-center {
-      flex: 1;
-      max-width: 480px;
+    .nav-tab.active .nav-badge {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .search-box {
       position: relative;
-      width: 100%;
+      width: 280px;
     }
 
     .search-box input {
       width: 100%;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
-      color: #000;
-      padding: 0.55rem 1rem 0.55rem 2.4rem;
-      border-radius: 4px;
-      font-size: 0.88rem;
+      color: var(--text-main);
+      padding: 0.5rem 1rem 0.5rem 2.4rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
       outline: none;
-      transition: border-color 0.2s ease;
+      transition: all 0.25s ease;
     }
 
     .search-box input:focus {
-      border-color: #000;
+      border-color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
     .search-icon {
@@ -191,25 +168,8 @@
       font-size: 0.85rem;
     }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .stat-pill {
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-    }
-
-    /* --- MASSIVE STATEMENT HERO --- */
-    .hero-statement {
+    /* --- BOLD STATEMENT HERO SECTION --- */
+    .hero-section {
       text-align: center;
       padding: 3.5rem 1.5rem 2rem;
       max-width: 1100px;
@@ -218,13 +178,23 @@
 
     .hero-title {
       font-family: 'Outfit', sans-serif;
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -1.5px;
-      line-height: 0.95;
-      color: #000000;
-      margin-bottom: 1.5rem;
+      letter-spacing: -1.2px;
+      line-height: 1.05;
+      background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.5;
     }
 
     .sub-filter-bar {
@@ -232,14 +202,13 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1rem;
     }
 
     .sub-btn {
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
-      color: #374151;
-      padding: 0.4rem 0.95rem;
+      color: var(--text-muted);
+      padding: 0.4rem 1rem;
       border-radius: 20px;
       font-family: 'Outfit', sans-serif;
       font-size: 0.82rem;
@@ -249,12 +218,13 @@
     }
 
     .sub-btn:hover, .sub-btn.active {
-      background: #000000;
+      background: rgba(139, 92, 246, 0.2);
       color: #ffffff;
-      border-color: #000000;
+      border-color: rgba(139, 92, 246, 0.5);
+      box-shadow: 0 0 16px var(--accent-glow);
     }
 
-    /* --- MAIN CONTENT & GRID --- */
+    /* --- MAIN GALLERY GRID --- */
     main {
       max-width: 1600px;
       margin: 1rem auto 3rem;
@@ -273,7 +243,7 @@
       margin-bottom: 1.2rem;
     }
 
-    /* EDITORIAL MASONRY GRID */
+    /* ZERO-CLIPPING MASONRY COLUMN GRID */
     .masonry-grid {
       column-count: 4;
       column-gap: 1.25rem;
@@ -289,24 +259,25 @@
       .masonry-grid { column-count: 1; }
     }
 
-    /* EDITORIAL CARD DESIGN */
+    /* PHOTO CARD */
     .photo-card {
       break-inside: avoid;
       margin-bottom: 1.25rem;
       position: relative;
-      background: #f9fafb;
+      background: var(--bg-card);
       border-radius: var(--radius);
       overflow: hidden;
       cursor: pointer;
       border: 1px solid var(--border);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
       width: 100%;
     }
 
     .photo-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-      border-color: #000000;
+      transform: scale(1.02);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8);
+      border-color: rgba(139, 92, 246, 0.4);
+      z-index: 10;
     }
 
     .photo-card img {
@@ -320,7 +291,7 @@
     .hover-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.92) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
       opacity: 0;
       display: flex;
       flex-direction: column;
@@ -340,19 +311,20 @@
     }
 
     .overlay-tag {
-      background: rgba(255, 255, 255, 0.95);
-      color: #000;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 800;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
       padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      text-transform: uppercase;
+      border-radius: 6px;
     }
 
     .dynamic-tag {
-      background: #10b981;
-      color: #fff;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
     }
 
     .overlay-bottom {
@@ -364,7 +336,7 @@
     .card-title {
       font-family: 'Outfit', sans-serif;
       font-size: 1.05rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #ffffff;
       line-height: 1.2;
       white-space: nowrap;
@@ -384,14 +356,13 @@
 
     .copy-btn-sm {
       flex: 1;
-      background: #ffffff;
-      color: #000000;
-      border: none;
+      background: rgba(139, 92, 246, 0.25);
+      color: #ffffff;
+      border: 1px solid rgba(139, 92, 246, 0.4);
       padding: 0.45rem 0.6rem;
-      border-radius: 4px;
-      font-family: 'Outfit', sans-serif;
+      border-radius: 6px;
       font-size: 0.75rem;
-      font-weight: 800;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -402,22 +373,23 @@
     }
 
     .copy-btn-sm:hover {
-      background: #000000;
-      color: #ffffff;
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px var(--accent-glow);
     }
 
     .copy-btn-sm.copied {
       background: #10b981;
-      color: #ffffff;
+      border-color: #10b981;
     }
 
     /* --- LIGHTBOX DETAIL MODAL --- */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -425,7 +397,7 @@
       padding: 2rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.3s ease;
     }
 
     .modal-backdrop.open {
@@ -434,16 +406,17 @@
     }
 
     .modal-card {
-      background: #ffffff;
-      border-radius: 12px;
-      max-width: 1050px;
+      background: #111116;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 1100px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       display: grid;
-      grid-template-columns: 1fr 360px;
+      grid-template-columns: 1fr 380px;
       position: relative;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
     }
 
     @media (max-width: 900px) {
@@ -456,66 +429,62 @@
       right: 1rem;
       width: 36px;
       height: 36px;
-      background: #f3f4f6;
-      border: 1px solid var(--border);
-      color: #000;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.1rem;
-      font-weight: 900;
+      font-size: 1.2rem;
       z-index: 20;
-      transition: background 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .modal-close:hover {
-      background: #000;
-      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .modal-image-area {
-      background: #f9fafb;
+      background: #000000;
       padding: 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
-      border-right: 1px solid var(--border);
     }
 
     .modal-image-area img {
       max-width: 100%;
       max-height: 65vh;
       object-fit: contain;
-      border-radius: 6px;
+      border-radius: 8px;
     }
 
     .view-toggle-bar {
       margin-top: 1rem;
       display: flex;
-      gap: 0.4rem;
-      background: #e5e7eb;
-      padding: 0.25rem;
-      border-radius: 6px;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.3rem;
+      border-radius: 8px;
     }
 
     .view-toggle-btn {
       background: transparent;
       border: none;
-      color: #4b5563;
+      color: var(--text-muted);
       padding: 0.3rem 0.8rem;
-      border-radius: 4px;
-      font-family: 'Outfit', sans-serif;
+      border-radius: 6px;
       font-size: 0.78rem;
-      font-weight: 800;
+      font-weight: 600;
       cursor: pointer;
     }
 
     .view-toggle-btn.active {
-      background: #000000;
+      background: var(--accent);
       color: #ffffff;
     }
 
@@ -524,13 +493,14 @@
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
+      border-left: 1px solid var(--border);
     }
 
     .modal-title {
       font-family: 'Outfit', sans-serif;
       font-size: 1.4rem;
-      font-weight: 900;
-      color: #000;
+      font-weight: 800;
+      color: #ffffff;
     }
 
     .modal-meta-list {
@@ -548,29 +518,30 @@
     }
 
     .modal-copy-btn {
-      background: #000000;
-      color: #ffffff;
-      border: none;
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.3);
       padding: 0.75rem 1rem;
-      border-radius: 6px;
-      font-family: 'Outfit', sans-serif;
+      border-radius: 8px;
       font-size: 0.85rem;
-      font-weight: 800;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      transition: background 0.2s ease;
+      transition: all 0.2s ease;
     }
 
     .modal-copy-btn:hover {
-      background: #333333;
+      background: var(--accent);
+      color: #ffffff;
     }
 
     .modal-copy-btn.copied {
       background: #10b981;
       color: #ffffff;
+      border-color: #10b981;
     }
 
     .related-section {
@@ -580,9 +551,8 @@
     }
 
     .related-title {
-      font-family: 'Outfit', sans-serif;
       font-size: 0.85rem;
-      font-weight: 800;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-muted);
@@ -596,17 +566,17 @@
 
     .related-thumb {
       aspect-ratio: 16/9;
-      background: #f3f4f6;
+      background: #000000;
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
-      border: 1px solid var(--border);
+      border: 1px solid transparent;
       transition: all 0.2s ease;
     }
 
     .related-thumb:hover {
-      border-color: #000;
-      transform: scale(1.04);
+      border-color: var(--accent);
+      transform: scale(1.05);
     }
 
     .related-thumb img {
@@ -629,38 +599,40 @@
 
   <header>
     <div class="header-top">
-      <div class="header-left">
-        <a href="#" class="brand-asterisk" title="Nuvio Art">✳</a>
-        <div class="dropdown-container">
-          <button class="cat-dropdown-btn" id="catDropdownBtn">
-            CATEGORIES <span style="font-size:0.7rem">▼</span>
-          </button>
-          <div class="cat-menu" id="catMenu">
-            <button class="cat-item active" data-type="covers">🎨 Covers <span id="badgeCovers">0</span></button>
-            <button class="cat-item" data-type="backdrops">🖼️ Hero Backdrops <span id="badgeBackdrops">0</span></button>
-            <button class="cat-item" data-type="logos">🏷️ Title Logos <span id="badgeLogos">0</span></button>
-            <button class="cat-item" data-type="archive">📸 Gallery Archive <span id="badgeArchive">0</span></button>
-          </div>
-        </div>
-        <button class="browse-all-btn" id="browseAllBtn">BROWSE ALL</button>
-      </div>
+      <a href="#" class="brand-group">
+        <div class="brand-badge">K</div>
+        <span class="brand-title">Kaptain's Mega Collection</span>
+      </a>
 
-      <div class="header-center">
+      <!-- PRIMARY NAV TABS -->
+      <nav class="primary-nav" id="primaryNav">
+        <button class="nav-tab active" data-type="covers">
+          🎨 Covers <span class="nav-badge" id="badgeCovers">0</span>
+        </button>
+        <button class="nav-tab" data-type="backdrops">
+          🖼️ Hero Backdrops <span class="nav-badge" id="badgeBackdrops">0</span>
+        </button>
+        <button class="nav-tab" data-type="logos">
+          🏷️ Title Logos <span class="nav-badge" id="badgeLogos">0</span>
+        </button>
+        <button class="nav-tab" data-type="archive">
+          📸 Gallery Archive <span class="nav-badge" id="badgeArchive">0</span>
+        </button>
+      </nav>
+
+      <div class="header-right">
         <div class="search-box">
           <span class="search-icon">🔍</span>
           <input type="text" id="searchInput" placeholder="Search covers & assets...">
         </div>
       </div>
-
-      <div class="header-right">
-        <span class="stat-pill" id="statPill">868 ASSETS</span>
-      </div>
     </div>
   </header>
 
-  <!-- MASSIVE STATEMENT HERO -->
-  <section class="hero-statement">
-    <h1 class="hero-title">JUST GIVE ME THE<br>F*CKING ASSETS</h1>
+  <!-- STATEMENT HERO SECTION -->
+  <section class="hero-section">
+    <h1 class="hero-title">Kaptain's Mega Collection<br>of Assets</h1>
+    <p class="hero-subtitle">Official portfolio for Nuvio covers, dynamic daily artwork, hero backdrops, and title logos.</p>
     
     <!-- SUB-FILTER PILLS FOR COVERS -->
     <div class="sub-filter-bar" id="subFilterBar">
@@ -716,7 +688,7 @@
   </div>
 
   <footer>
-    <p>Nuvio Mega Collection • Official Asset Portfolio hosted on GitHub Pages</p>
+    <p>Kaptain's Mega Collection • Official Nuvio Asset Portfolio hosted on GitHub Pages</p>
   </footer>
 
   <script>
@@ -14618,10 +14590,7 @@
     const grid = document.getElementById('galleryGrid');
     const searchInput = document.getElementById('searchInput');
     const sectionLabel = document.getElementById('sectionLabel');
-    const catDropdownBtn = document.getElementById('catDropdownBtn');
-    const catMenu = document.getElementById('catMenu');
-    const browseAllBtn = document.getElementById('browseAllBtn');
-    const catItems = document.querySelectorAll('.cat-item');
+    const navTabs = document.querySelectorAll('.nav-tab');
     const subBtns = document.querySelectorAll('.sub-btn');
     const subFilterBar = document.getElementById('subFilterBar');
 
@@ -14645,32 +14614,10 @@
     const logosCount = ASSETS.filter(a => a.type === 'logos').length;
     const archiveCount = ASSETS.filter(a => a.is_gallery).length;
 
-    document.getElementById('badgeCovers').textContent = `(${coversCount})`;
-    document.getElementById('badgeBackdrops').textContent = `(${backdropsCount})`;
-    document.getElementById('badgeLogos').textContent = `(${logosCount})`;
-    document.getElementById('badgeArchive').textContent = `(${archiveCount})`;
-    document.getElementById('statPill').textContent = `${ASSETS.length} ASSETS`;
-
-    // Category Dropdown Toggle
-    catDropdownBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      catMenu.classList.toggle('open');
-    });
-
-    document.addEventListener('click', () => catMenu.classList.remove('open'));
-
-    // Browse All Reset
-    browseAllBtn.addEventListener('click', () => {
-      activeType = 'covers';
-      activeSub = 'all';
-      searchInput.value = '';
-      catItems.forEach(i => i.classList.remove('active'));
-      document.querySelector('[data-type="covers"]').classList.add('active');
-      subBtns.forEach(b => b.classList.remove('active'));
-      document.querySelector('[data-sub="all"]').classList.add('active');
-      subFilterBar.style.display = 'flex';
-      renderGrid();
-    });
+    document.getElementById('badgeCovers').textContent = coversCount;
+    document.getElementById('badgeBackdrops').textContent = backdropsCount;
+    document.getElementById('badgeLogos').textContent = logosCount;
+    document.getElementById('badgeArchive').textContent = archiveCount;
 
     function renderGrid() {
       const query = searchInput.value.toLowerCase().trim();
@@ -14892,12 +14839,11 @@
       }
     });
 
-    catItems.forEach(item => {
-      item.addEventListener('click', () => {
-        catItems.forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-        activeType = item.dataset.type;
-        catMenu.classList.remove('open');
+    navTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        navTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeType = tab.dataset.type;
 
         if (activeType === 'covers') {
           subFilterBar.style.display = 'flex';
