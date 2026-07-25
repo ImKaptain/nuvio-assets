@@ -334,7 +334,7 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* ZERO-CLIPPING MASONRY COLUMN GRID */
+    /* ZERO-CLUSTERING MASONRY GRID */
     .masonry-grid {{
       column-count: 4;
       column-gap: 1.25rem;
@@ -350,7 +350,7 @@ def generate_gallery_html(assets):
       .masonry-grid {{ column-count: 1; }}
     }}
 
-    /* ZERO-CLUTTER & ZERO-CLIPPING PHOTO CARD */
+    /* PHOTO CARD */
     .photo-card {{
       break-inside: avoid;
       margin-bottom: 1.25rem;
@@ -377,7 +377,7 @@ def generate_gallery_html(assets):
       transition: opacity 0.3s ease;
     }}
 
-    /* HOVER OVERLAY (ALL TEXT & DUAL COPY BUTTONS HIDDEN UNTIL HOVER) */
+    /* HOVER OVERLAY */
     .hover-overlay {{
       position: absolute;
       inset: 0;
@@ -439,7 +439,6 @@ def generate_gallery_html(assets):
       color: #d1d5db;
     }}
 
-    /* DUAL COPY BUTTONS GROUP ON HOVER */
     .dual-copy-group {{
       display: flex;
       gap: 0.4rem;
@@ -643,7 +642,7 @@ def generate_gallery_html(assets):
     }}
 
     .related-title {{
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -761,8 +760,8 @@ def generate_gallery_html(assets):
           </button>
         </div>
 
-        <div class="related-section">
-          <div class="related-title">Related Covers & Versions</div>
+        <div class="related-section" id="relatedSection">
+          <div class="related-title">Card Variations & Gallery History</div>
           <div class="related-grid" id="relatedGrid"></div>
         </div>
       </div>
@@ -798,6 +797,7 @@ def generate_gallery_html(assets):
     const modalCopyGifBtn = document.getElementById('modalCopyGifBtn');
     const togglePngBtn = document.getElementById('togglePngBtn');
     const toggleGifBtn = document.getElementById('toggleGifBtn');
+    const relatedSection = document.getElementById('relatedSection');
     const relatedGrid = document.getElementById('relatedGrid');
 
     // Update Counts (STRICT CLASSIFICATION)
@@ -946,21 +946,32 @@ def generate_gallery_html(assets):
         modalCopyGifBtn.style.display = 'none';
       }}
 
-      // Populate Related Assets
+      // Populate Related Variations STRICTLY for THAT EXACT Card / Folder
       relatedGrid.innerHTML = '';
-      const related = ASSETS.filter(a => 
-        a.id !== item.id && 
-        (a.category === item.category || (a.subfolder && a.subfolder === item.subfolder))
-      ).slice(0, 6);
+      const targetFolder = (item.subfolder || item.title).toLowerCase();
+      const targetCat = item.category.toLowerCase();
 
-      related.forEach(rel => {{
-        const thumb = document.createElement('div');
-        thumb.className = 'related-thumb';
-        thumb.title = rel.title;
-        thumb.innerHTML = `<img src="${{rel.base_url}}" alt="${{rel.title}}">`;
-        thumb.addEventListener('click', () => openModal(rel));
-        relatedGrid.appendChild(thumb);
-      }});
+      const related = ASSETS.filter(a => {{
+        if (a.id === item.id) return false;
+        if (a.category.toLowerCase() !== targetCat) return false;
+        if (a.type !== item.type) return false;
+        const aFolder = (a.subfolder || a.title).toLowerCase();
+        return aFolder === targetFolder || a.file_path.toLowerCase().includes('/' + targetFolder + '/');
+      }}).slice(0, 6);
+
+      if (related.length === 0) {{
+        relatedSection.style.display = 'none';
+      }} else {{
+        relatedSection.style.display = 'flex';
+        related.forEach(rel => {{
+          const thumb = document.createElement('div');
+          thumb.className = 'related-thumb';
+          thumb.title = rel.title;
+          thumb.innerHTML = `<img src="${{rel.base_url}}" alt="${{rel.title}}">`;
+          thumb.addEventListener('click', () => openModal(rel));
+          relatedGrid.appendChild(thumb);
+        }});
+      }}
 
       detailModal.classList.add('open');
     }}
@@ -1054,7 +1065,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Dual Copy & Lightbox Detail Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Exact Folder Variations Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
