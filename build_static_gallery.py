@@ -19,15 +19,19 @@ def classify_asset_type(root_folder, file_path):
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
         
+    # International Cinema cards have Outline, Hybrid, FilmStripFlag, FilmStripHybrid, Flag, Poster styles
+    if lower_root == 'international cinema' or 'international cinema' in lower_path:
+        if 'background' in lower_path or 'backdrop' in lower_path or 'wallpaper' in lower_path:
+            return 'backdrops'
+        return 'covers'
+        
     # Regex check for T1, T2, T3, T4, T5 collage variations (e.g. T1_1080p, T2_4K, _T1_)
     is_t_backdrop = bool(re.search(r'(^|[\b_])t[1-9]([\b_.]|\d)', filename))
         
     # Strict backdrop, collage, banner, and variant keywords
     backdrop_keywords = [
-        'filmstrip', 'hybrid', 'outline', 'opt0', 'opt1',
-        'opt2', 'opt3', 'option', 'variant', 'collage',
-        'wallpaper', 'background', 'backdrop', 'prism',
-        'hero', 'banner', 'fanart'
+        'opt0', 'opt1', 'opt2', 'opt3', 'option', 'variant', 'collage',
+        'wallpaper', 'background', 'backdrop', 'prism', 'hero', 'banner', 'fanart'
     ]
     
     is_backdrop_keyword = any(k in lower_path for k in backdrop_keywords)
@@ -773,7 +777,7 @@ def generate_gallery_html(assets):
         </div>
 
         <div class="related-section" id="relatedSection">
-          <div class="related-title">Card Variations & Gallery History</div>
+          <div class="related-title">Card Variations & Style Options</div>
           <div class="related-grid" id="relatedGrid"></div>
         </div>
       </div>
@@ -965,18 +969,21 @@ def generate_gallery_html(assets):
         modalCopyGifBtn.style.display = 'none';
       }}
 
-      // Populate Related Variations STRICTLY for THAT EXACT Card / Folder
+      // Populate Related Variations STRICTLY for THAT EXACT Country / Folder
       relatedGrid.innerHTML = '';
-      const targetFolder = (item.subfolder || item.title).toLowerCase();
+      const rawFolder = (item.subfolder || item.title).toLowerCase();
       const targetCat = item.category.toLowerCase();
+
+      // For International Cinema, clean country name (e.g. 'german cinema' from 'German Cinema Outline')
+      const cleanCountry = rawFolder.replace('filmstripflag', '').replace('filmstriphybrid', '').replace('flag', '').replace('hybrid', '').replace('outline', '').replace('poster', '').trim();
 
       const related = ASSETS.filter(a => {{
         if (a.id === item.id) return false;
         if (a.category.toLowerCase() !== targetCat) return false;
         if (a.type !== item.type) return false;
         const aFolder = (a.subfolder || a.title).toLowerCase();
-        return aFolder === targetFolder || a.file_path.toLowerCase().includes('/' + targetFolder + '/');
-      }}).slice(0, 6);
+        return aFolder.includes(cleanCountry) || a.file_path.toLowerCase().includes('/' + cleanCountry + '/');
+      }}).slice(0, 8);
 
       if (related.length === 0) {{
         relatedSection.style.display = 'none';
@@ -1084,7 +1091,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Pure Genres & Streaming Fixed Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean All International Cinema Variations Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
