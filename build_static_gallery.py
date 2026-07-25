@@ -5,19 +5,24 @@ ASSET_DIR = os.path.dirname(os.path.abspath(__file__))
 GITHUB_RAW_BASE = "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main"
 
 def classify_asset_type(root_folder, file_path):
-    """Classifies an asset into 'covers', 'backdrops', or 'logos'."""
+    """Strictly classifies an asset into 'covers', 'backdrops', or 'logos'."""
     lower_path = file_path.lower()
     lower_root = root_folder.lower()
     
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
-    elif lower_root.startswith('nuvio_backdrops_') or 'backdrop' in lower_path:
+    elif (lower_root.startswith('nuvio_backdrops_') or 
+          'backdrop' in lower_path or 
+          'backdrop' in lower_root or 
+          'prism' in lower_path or 
+          'wallpaper' in lower_path or 
+          'hero' in lower_path):
         return 'backdrops'
     else:
         return 'covers'
 
 def scan_assets():
-    """Scans all folders in nuvio-assets and organizes them into clean categories."""
+    """Scans all folders in nuvio-assets and organizes them strictly into clean asset types."""
     assets = []
     ignore_dirs = {'.git', '.github', 'nuvio-share-hub', 'scratch', 'assets'}
     
@@ -85,22 +90,19 @@ def generate_gallery_html(assets):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuvio Art Portfolio • Official Asset Gallery</title>
+  <title>Nuvio Art Portfolio • Official Gallery</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {{
       --bg-dark: #070709;
-      --bg-card: #111116;
-      --bg-header: rgba(11, 11, 15, 0.85);
+      --bg-header: rgba(10, 10, 14, 0.85);
       --accent: #8b5cf6;
-      --accent-hover: #7c3aed;
-      --accent-glow: rgba(139, 92, 246, 0.35);
+      --accent-glow: rgba(139, 92, 246, 0.4);
       --text-main: #f9fafb;
       --text-muted: #9ca3af;
       --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(139, 92, 246, 0.4);
       --radius: 12px;
     }}
 
@@ -116,7 +118,7 @@ def generate_gallery_html(assets):
       -webkit-font-smoothing: antialiased;
     }}
 
-    /* --- TOP HEADER & NAVIGATION --- */
+    /* --- MINIMAL HEADER & NAVIGATION --- */
     header {{
       background: var(--bg-header);
       backdrop-filter: blur(24px);
@@ -128,9 +130,9 @@ def generate_gallery_html(assets):
     }}
 
     .header-top {{
-      max-width: 1500px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 1.2rem 2rem;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -140,83 +142,70 @@ def generate_gallery_html(assets):
     .brand {{
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.75rem;
       text-decoration: none;
       color: var(--text-main);
     }}
 
     .brand-logo {{
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       background: linear-gradient(135deg, #8b5cf6, #ec4899);
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 900;
       font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       box-shadow: 0 4px 15px var(--accent-glow);
     }}
 
     .brand-text {{
       font-family: 'Outfit', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
       letter-spacing: -0.5px;
     }}
 
-    .brand-tag {{
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--accent);
-      background: rgba(139, 92, 246, 0.12);
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      margin-left: 0.4rem;
-    }}
-
     .search-box {{
       position: relative;
-      width: 360px;
+      width: 320px;
     }}
 
     .search-box input {{
       width: 100%;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 0.65rem 1rem 0.65rem 2.6rem;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
       border-radius: 20px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       outline: none;
       transition: all 0.25s ease;
     }}
 
     .search-box input:focus {{
-      background: rgba(255, 255, 255, 0.07);
       border-color: var(--accent);
       box-shadow: 0 0 16px var(--accent-glow);
     }}
 
     .search-icon {{
       position: absolute;
-      left: 0.9rem;
+      left: 0.85rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }}
 
-    /* --- PRIMARY TABS (Covers, Backdrops, Logos, Archive) --- */
+    /* --- PRIMARY NAVIGATION TABS --- */
     .primary-nav {{
-      max-width: 1500px;
+      max-width: 1600px;
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
       gap: 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     }}
 
     .nav-tab {{
@@ -226,7 +215,7 @@ def generate_gallery_html(assets):
       font-family: 'Outfit', sans-serif;
       font-size: 0.95rem;
       font-weight: 600;
-      padding: 0.8rem 1.4rem;
+      padding: 0.75rem 1.2rem;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       display: flex;
@@ -247,7 +236,7 @@ def generate_gallery_html(assets):
     .nav-badge {{
       background: rgba(255, 255, 255, 0.08);
       color: var(--text-muted);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       padding: 0.15rem 0.5rem;
       border-radius: 12px;
       font-weight: 500;
@@ -260,22 +249,24 @@ def generate_gallery_html(assets):
 
     /* --- SECONDARY SUB-FILTERS (For Covers tab) --- */
     .sub-filter-bar {{
-      max-width: 1500px;
-      margin: 1rem auto 0;
-      padding: 0 2rem;
+      max-width: 1600px;
+      margin: 0.75rem auto 0;
+      padding: 0 2rem 0.75rem;
       display: flex;
       gap: 0.5rem;
       overflow-x: auto;
       scrollbar-width: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 0.75rem;
     }}
 
     .sub-btn {{
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 0.4rem 0.9rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 20px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
       white-space: nowrap;
@@ -288,161 +279,150 @@ def generate_gallery_html(assets):
       border-color: rgba(139, 92, 246, 0.4);
     }}
 
-    /* --- MAIN CONTENT & PORTFOLIO GRID --- */
+    /* --- MAIN GALLERY GRID --- */
     main {{
-      max-width: 1500px;
-      margin: 2rem auto;
+      max-width: 1600px;
+      margin: 1.5rem auto;
       padding: 0 2rem;
       flex-grow: 1;
       width: 100%;
     }}
 
-    .status-bar {{
-      margin-bottom: 1.5rem;
+    .status-summary {{
+      margin-bottom: 1.2rem;
       color: var(--text-muted);
-      font-size: 0.88rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      font-size: 0.85rem;
     }}
 
-    /* TUMBLR / PHOTOGRAPHER PORTFOLIO GRID */
-    .portfolio-grid {{
+    /* CLEAN UNCLUTTERED TUMBLR / PHOTOGRAPHER GRID */
+    .gallery-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
     }}
 
-    .portfolio-card {{
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    /* ZERO-CLUTTER PHOTO CARD */
+    .photo-card {{
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #050508;
       border-radius: var(--radius);
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
     }}
 
-    .portfolio-card:hover {{
-      transform: translateY(-6px);
-      border-color: var(--border-hover);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-    }}
-
-    .media-frame {{
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #000;
-      overflow: hidden;
-    }}
-
-    .media-frame img {{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease, opacity 0.3s ease;
-    }}
-
-    .portfolio-card:hover .media-frame img {{
-      transform: scale(1.03);
-    }}
-
-    .tag-overlay {{
-      position: absolute;
-      top: 0.7rem;
-      right: 0.7rem;
-      display: flex;
-      gap: 0.4rem;
+    .photo-card:hover {{
+      transform: scale(1.02);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8);
       z-index: 10;
     }}
 
-    .tag-pill {{
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      letter-spacing: 0.3px;
+    .photo-card img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
     }}
 
-    .dynamic-pill {{
+    /* HOVER OVERLAY (ALL TEXT & BUTTONS ARE HIDDEN UNTIL HOVER) */
+    .hover-overlay {{
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+      transition: opacity 0.25s ease;
+      z-index: 20;
+    }}
+
+    .photo-card:hover .hover-overlay {{
+      opacity: 1;
+    }}
+
+    .overlay-top {{
+      display: flex;
+      justify-content: flex-end;
+    }}
+
+    .overlay-tag {{
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }}
+
+    .dynamic-tag {{
       background: linear-gradient(135deg, #10b981, #059669);
       border: none;
     }}
 
-    .card-footer {{
-      padding: 1.1rem;
+    .overlay-bottom {{
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
-      background: linear-gradient(180deg, rgba(17, 17, 22, 0.6) 0%, rgba(17, 17, 22, 1) 100%);
-      flex-grow: 1;
-      justify-content: space-between;
+      gap: 0.6rem;
     }}
 
-    .card-info {{
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }}
-
-    .card-title-text {{
+    .card-title {{
       font-family: 'Outfit', sans-serif;
       font-size: 1.05rem;
       font-weight: 700;
       color: #fff;
+      line-height: 1.2;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }}
 
-    .card-subtext {{
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .card-sub {{
+      font-size: 0.78rem;
+      color: #d1d5db;
     }}
 
-    .copy-raw-btn {{
-      background: rgba(139, 92, 246, 0.12);
-      color: #a78bfa;
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      padding: 0.6rem 1rem;
+    .copy-btn {{
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.55rem 0.9rem;
       border-radius: 8px;
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
-    }}
-
-    .copy-raw-btn:hover {{
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
+      gap: 0.4rem;
+      transition: background 0.2s ease, transform 0.15s ease;
       box-shadow: 0 4px 12px var(--accent-glow);
     }}
 
-    .copy-raw-btn.copied {{
+    .copy-btn:hover {{
+      background: #7c3aed;
+      transform: translateY(-1px);
+    }}
+
+    .copy-btn.copied {{
       background: #10b981;
-      color: #fff;
-      border-color: #10b981;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
     }}
 
     footer {{
       border-top: 1px solid var(--border);
-      padding: 2.5rem;
+      padding: 2rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
-      margin-top: 4rem;
+      margin-top: 3rem;
     }}
   </style>
 </head>
@@ -453,15 +433,14 @@ def generate_gallery_html(assets):
       <a href="#" class="brand">
         <div class="brand-logo">N</div>
         <span class="brand-text">NUVIO ART</span>
-        <span class="brand-tag">PORTFOLIO</span>
       </a>
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search covers, backdrops, actors, moods...">
+        <input type="text" id="searchInput" placeholder="Search covers...">
       </div>
     </div>
 
-    <!-- PRIMARY TABS -->
+    <!-- PRIMARY NAV TABS -->
     <div class="primary-nav" id="primaryNav">
       <button class="nav-tab active" data-type="covers">
         🎨 Covers <span class="nav-badge" id="badgeCovers">0</span>
@@ -477,7 +456,7 @@ def generate_gallery_html(assets):
       </button>
     </div>
 
-    <!-- SECONDARY SUB-FILTERS (Shown for Covers) -->
+    <!-- SECONDARY SUB-FILTERS (Only visible on Covers tab) -->
     <div class="sub-filter-bar" id="subFilterBar">
       <button class="sub-btn active" data-sub="all">All Covers</button>
       <button class="sub-btn" data-sub="Genres">Genres</button>
@@ -489,10 +468,8 @@ def generate_gallery_html(assets):
   </header>
 
   <main>
-    <div class="status-bar">
-      <span id="statsSummary">Loading artwork portfolio...</span>
-    </div>
-    <div class="portfolio-grid" id="portfolioGrid"></div>
+    <div class="status-summary" id="statsSummary">Loading gallery...</div>
+    <div class="gallery-grid" id="galleryGrid"></div>
   </main>
 
   <footer>
@@ -505,14 +482,14 @@ def generate_gallery_html(assets):
     let activeType = 'covers';  // 'covers' | 'backdrops' | 'logos' | 'archive'
     let activeSub = 'all';     // sub-filter for covers
 
-    const grid = document.getElementById('portfolioGrid');
+    const grid = document.getElementById('galleryGrid');
     const searchInput = document.getElementById('searchInput');
     const statsSummary = document.getElementById('statsSummary');
     const navTabs = document.querySelectorAll('.nav-tab');
     const subBtns = document.querySelectorAll('.sub-btn');
     const subFilterBar = document.getElementById('subFilterBar');
 
-    // Update Counts
+    // Update Counts (STRICT CLASSIFICATION)
     const coversCount = ASSETS.filter(a => a.type === 'covers' && !a.is_gallery).length;
     const backdropsCount = ASSETS.filter(a => a.type === 'backdrops' && !a.is_gallery).length;
     const logosCount = ASSETS.filter(a => a.type === 'logos').length;
@@ -533,15 +510,19 @@ def generate_gallery_html(assets):
                               
         if (!matchesSearch) return false;
 
+        // Archive Tab
         if (activeType === 'archive') return item.is_gallery;
-        if (item.is_gallery) return false; // Hide gallery from normal tabs
+        if (item.is_gallery) return false; // Strictly hide gallery items from normal tabs
 
+        // Backdrops Tab (STRICT)
         if (activeType === 'backdrops') return item.type === 'backdrops';
+        
+        // Logos Tab (STRICT)
         if (activeType === 'logos') return item.type === 'logos';
         
-        // Covers tab
+        // Covers Tab (STRICT: MUST BE TYPE 'COVERS')
         if (activeType === 'covers') {{
-          if (item.type !== 'covers') return false;
+          if (item.type !== 'covers') return false; // Zero backdrops allowed here!
           if (activeSub === 'all') return true;
           if (activeSub === 'Actors') return item.category === 'Actors' || item.category === 'Directors';
           if (activeSub === 'Streaming Services') return item.category === 'Streaming Services' || item.category === 'Networks';
@@ -556,7 +537,7 @@ def generate_gallery_html(assets):
 
       filtered.forEach(item => {{
         const card = document.createElement('div');
-        card.className = 'portfolio-card';
+        card.className = 'photo-card';
 
         const baseSrc = item.base_url;
         const hoverSrc = item.hover_url || item.base_url;
@@ -566,20 +547,20 @@ def generate_gallery_html(assets):
         else if (item.is_gallery) badgeText = '📸 Archive';
 
         card.innerHTML = `
-          <div class="media-frame">
-            <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy">
-            <div class="tag-overlay">
-              <span class="tag-pill ${{item.is_dynamic ? 'dynamic-pill' : ''}}">${{badgeText}}</span>
+          <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy">
+          <div class="hover-overlay">
+            <div class="overlay-top">
+              <span class="overlay-tag ${{item.is_dynamic ? 'dynamic-tag' : ''}}">${{badgeText}}</span>
             </div>
-          </div>
-          <div class="card-footer">
-            <div class="card-info">
-              <div class="card-title-text">${{item.title}}</div>
-              <div class="card-subtext">${{item.category}} ${{item.subfolder ? '• ' + item.subfolder : ''}}</div>
+            <div class="overlay-bottom">
+              <div>
+                <div class="card-title">${{item.title}}</div>
+                <div class="card-sub">${{item.category}} ${{item.subfolder ? '• ' + item.subfolder : ''}}</div>
+              </div>
+              <button class="copy-btn" data-url="${{baseSrc}}">
+                <span>📋 Copy Raw URL</span>
+              </button>
             </div>
-            <button class="copy-raw-btn" data-url="${{baseSrc}}">
-              <span>📋 Copy Raw URL</span>
-            </button>
           </div>
         `;
 
@@ -591,7 +572,7 @@ def generate_gallery_html(assets):
           img.src = baseSrc;
         }});
 
-        const copyBtn = card.querySelector('.copy-raw-btn');
+        const copyBtn = card.querySelector('.copy-btn');
         copyBtn.addEventListener('click', (e) => {{
           e.stopPropagation();
           navigator.clipboard.writeText(baseSrc);
@@ -651,7 +632,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Tumblr-style Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean zero-clutter Photographer Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
