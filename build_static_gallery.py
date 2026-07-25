@@ -16,18 +16,25 @@ def classify_asset_type(root_folder, file_path):
         
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
-    elif (lower_root.startswith('nuvio_backdrops_') or 
-          lower_root == 'collections' or 
-          lower_root == 'external_cache' or 
-          'backdrop' in lower_path or 
-          'backdrop' in lower_root or 
-          'background' in lower_path or 
-          'background' in lower_root or 
-          'prism' in lower_path or 
-          'wallpaper' in lower_path or 
-          'fanart' in lower_path or 
-          'hero' in lower_path or 
-          'banner' in lower_path):
+        
+    # Strict backdrop, collage, banner, and variant keywords
+    backdrop_keywords = [
+        '_t1_', '_t2_', '_t3_', '_t4_', '_t5_',
+        '_t1.', '_t2.', '_t3.', '_t4.', '_t5.',
+        'filmstrip', 'hybrid', 'outline', 'opt0', 'opt1',
+        'opt2', 'opt3', 'option', 'variant', 'collage',
+        'wallpaper', 'background', 'backdrop', 'prism',
+        'hero', 'banner', 'fanart'
+    ]
+    
+    is_backdrop_keyword = any(k in lower_path for k in backdrop_keywords)
+    
+    if (lower_root.startswith('nuvio_backdrops_') or 
+        lower_root == 'collections' or 
+        lower_root == 'external_cache' or 
+        'backdrop' in lower_root or 
+        'background' in lower_root or 
+        is_backdrop_keyword):
         return 'backdrops'
     else:
         return 'covers'
@@ -334,7 +341,7 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* ZERO-CLUSTERING MASONRY GRID */
+    /* ZERO-CLIPPING MASONRY COLUMN GRID */
     .masonry-grid {{
       column-count: 4;
       column-gap: 1.25rem;
@@ -1065,7 +1072,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Exact Folder Variations Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Strict Backdrop Filter Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
