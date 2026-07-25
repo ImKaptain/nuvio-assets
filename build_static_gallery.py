@@ -150,15 +150,13 @@ def generate_gallery_html(assets):
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {{
-      --bg-dark: #070709;
-      --bg-header: rgba(10, 10, 14, 0.92);
-      --bg-card: #101015;
-      --accent: #8b5cf6;
-      --accent-pink: #ec4899;
-      --accent-glow: rgba(139, 92, 246, 0.35);
+      --bg-dark: #09090b;
+      --bg-header: rgba(9, 9, 11, 0.92);
+      --bg-card: #121218;
+      --accent: #ffffff;
       --text-main: #f9fafb;
       --text-muted: #9ca3af;
-      --border: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.1);
       --radius: 12px;
     }}
 
@@ -167,18 +165,18 @@ def generate_gallery_html(assets):
     body {{
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }}
 
-    /* --- SLEEK DARK HEADER BAR --- */
+    /* --- SLEEK HEADER BAR --- */
     header {{
       background: var(--bg-header);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -206,20 +204,20 @@ def generate_gallery_html(assets):
     .brand-badge {{
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-pink));
-      border-radius: 10px;
+      background: #ffffff;
+      color: #000000;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 900;
       font-family: 'Outfit', sans-serif;
       font-size: 1.1rem;
-      box-shadow: 0 4px 18px var(--accent-glow);
     }}
 
     .brand-title {{
       font-family: 'Outfit', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 800;
       letter-spacing: -0.3px;
       color: #ffffff;
@@ -249,17 +247,17 @@ def generate_gallery_html(assets):
 
     .nav-tab:hover {{
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
     }}
 
     .nav-tab.active {{
-      color: #ffffff;
-      background: rgba(139, 92, 246, 0.2);
-      border-color: rgba(139, 92, 246, 0.4);
+      color: #000000;
+      background: #ffffff;
+      border-color: #ffffff;
     }}
 
     .nav-badge {{
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.12);
       color: var(--text-muted);
       font-size: 0.72rem;
       padding: 0.15rem 0.45rem;
@@ -268,7 +266,7 @@ def generate_gallery_html(assets):
     }}
 
     .nav-tab.active .nav-badge {{
-      background: var(--accent);
+      background: #000000;
       color: #ffffff;
     }}
 
@@ -292,12 +290,11 @@ def generate_gallery_html(assets):
       border-radius: 20px;
       font-size: 0.85rem;
       outline: none;
-      transition: all 0.25s ease;
+      transition: border-color 0.2s ease;
     }}
 
     .search-box input:focus {{
-      border-color: var(--accent);
-      box-shadow: 0 0 16px var(--accent-glow);
+      border-color: #ffffff;
     }}
 
     .search-icon {{
@@ -324,15 +321,13 @@ def generate_gallery_html(assets):
       text-transform: uppercase;
       letter-spacing: -1.2px;
       line-height: 1.05;
-      background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #ffffff;
       margin-bottom: 0.8rem;
     }}
 
     .hero-subtitle {{
       color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 0.98rem;
       max-width: 600px;
       margin: 0 auto 1.8rem;
       line-height: 1.5;
@@ -346,7 +341,7 @@ def generate_gallery_html(assets):
     }}
 
     .sub-btn {{
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: var(--text-muted);
       padding: 0.4rem 1rem;
@@ -358,11 +353,16 @@ def generate_gallery_html(assets):
       transition: all 0.2s ease;
     }}
 
-    .sub-btn:hover, .sub-btn.active {{
-      background: rgba(139, 92, 246, 0.2);
+    .sub-btn:hover {{
+      background: rgba(255, 255, 255, 0.12);
       color: #ffffff;
-      border-color: rgba(139, 92, 246, 0.5);
-      box-shadow: 0 0 16px var(--accent-glow);
+      border-color: rgba(255, 255, 255, 0.25);
+    }}
+
+    .sub-btn.active {{
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }}
 
     /* --- MAIN GALLERY GRID --- */
@@ -407,17 +407,15 @@ def generate_gallery_html(assets):
       position: relative;
       background: var(--bg-card);
       border-radius: var(--radius);
-      overflow: hidden;
       cursor: pointer;
       border: 1px solid var(--border);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      transition: transform 0.25s ease, border-color 0.25s ease;
       width: 100%;
     }}
 
     .photo-card:hover {{
-      transform: scale(1.02);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8);
-      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.3);
       z-index: 10;
     }}
 
@@ -425,6 +423,7 @@ def generate_gallery_html(assets):
       width: 100%;
       height: auto;
       display: block;
+      border-radius: var(--radius);
       transition: opacity 0.3s ease;
     }}
 
@@ -433,12 +432,13 @@ def generate_gallery_html(assets):
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
+      border-radius: var(--radius);
       opacity: 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 1rem;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.2s ease;
       z-index: 20;
     }}
 
@@ -452,9 +452,7 @@ def generate_gallery_html(assets):
     }}
 
     .overlay-tag {{
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #ffffff;
       font-size: 0.75rem;
@@ -464,7 +462,8 @@ def generate_gallery_html(assets):
     }}
 
     .dynamic-tag {{
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: #10b981;
+      color: #ffffff;
       border: none;
     }}
 
@@ -497,13 +496,13 @@ def generate_gallery_html(assets):
 
     .copy-btn-sm {{
       flex: 1;
-      background: rgba(139, 92, 246, 0.25);
+      background: rgba(255, 255, 255, 0.15);
       color: #ffffff;
-      border: 1px solid rgba(139, 92, 246, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       padding: 0.45rem 0.6rem;
       border-radius: 6px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -514,14 +513,15 @@ def generate_gallery_html(assets):
     }}
 
     .copy-btn-sm:hover {{
-      background: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 4px 12px var(--accent-glow);
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
     }}
 
     .copy-btn-sm.copied {{
       background: #10b981;
       border-color: #10b981;
+      color: #ffffff;
     }}
 
     /* --- LIGHTBOX DETAIL MODAL --- */
@@ -538,7 +538,7 @@ def generate_gallery_html(assets):
       padding: 2rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
     }}
 
     .modal-backdrop.open {{
@@ -608,7 +608,7 @@ def generate_gallery_html(assets):
       margin-top: 1rem;
       display: flex;
       gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       padding: 0.3rem;
       border-radius: 8px;
     }}
@@ -620,13 +620,13 @@ def generate_gallery_html(assets):
       padding: 0.3rem 0.8rem;
       border-radius: 6px;
       font-size: 0.78rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
     }}
 
     .view-toggle-btn.active {{
-      background: var(--accent);
-      color: #ffffff;
+      background: #ffffff;
+      color: #000000;
     }}
 
     .modal-info-area {{
@@ -659,13 +659,14 @@ def generate_gallery_html(assets):
     }}
 
     .modal-copy-btn {{
-      background: rgba(139, 92, 246, 0.15);
-      color: #a78bfa;
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      background: #ffffff;
+      color: #000000;
+      border: none;
       padding: 0.75rem 1rem;
       border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -675,14 +676,12 @@ def generate_gallery_html(assets):
     }}
 
     .modal-copy-btn:hover {{
-      background: var(--accent);
-      color: #ffffff;
+      background: #e5e7eb;
     }}
 
     .modal-copy-btn.copied {{
       background: #10b981;
       color: #ffffff;
-      border-color: #10b981;
     }}
 
     .related-section {{
@@ -692,10 +691,9 @@ def generate_gallery_html(assets):
     }}
 
     .related-title {{
-      font-size: 0.85rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
       color: var(--text-muted);
     }}
 
@@ -716,7 +714,7 @@ def generate_gallery_html(assets):
     }}
 
     .related-thumb:hover {{
-      border-color: var(--accent);
+      border-color: #ffffff;
       transform: scale(1.05);
     }}
 
@@ -728,11 +726,17 @@ def generate_gallery_html(assets):
 
     footer {{
       border-top: 1px solid var(--border);
-      padding: 2.5rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
       margin-top: 3rem;
+    }}
+
+    footer p {{
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
     }}
   </style>
 </head>
@@ -1135,7 +1139,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Dark Mode Kaptain Collection Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean High-Contrast Impeccable Audited Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
