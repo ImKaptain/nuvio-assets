@@ -207,20 +207,26 @@
       font-size: 0.85rem;
     }
 
-    /* TUMBLR PUZZLE ROW LAYOUT (NORMALIZED ROW HEIGHT) */
-    .tumblr-puzzle-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
+    /* ZERO-CLIPPING MASONRY COLUMN GRID */
+    .masonry-grid {
+      column-count: 4;
+      column-gap: 1.25rem;
     }
 
-    /* ZERO-CLUTTER TUMBLR PHOTO TILE */
+    @media (max-width: 1400px) {
+      .masonry-grid { column-count: 3; }
+    }
+    @media (max-width: 900px) {
+      .masonry-grid { column-count: 2; }
+    }
+    @media (max-width: 500px) {
+      .masonry-grid { column-count: 1; }
+    }
+
+    /* ZERO-CLUTTER & ZERO-CLIPPING PHOTO CARD */
     .photo-card {
-      height: 260px;
-      flex-grow: var(--ratio, 1.778);
-      flex-shrink: 1;
-      flex-basis: calc(260px * var(--ratio, 1.778));
-      max-width: 100%;
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
       position: relative;
       background: #050508;
       border-radius: var(--radius);
@@ -228,6 +234,7 @@
       cursor: pointer;
       border: 1px solid var(--border);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      width: 100%;
     }
 
     .photo-card:hover {
@@ -238,8 +245,7 @@
 
     .photo-card img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: opacity 0.3s ease;
     }
@@ -385,7 +391,7 @@
 
   <main>
     <div class="status-summary" id="statsSummary">Loading gallery...</div>
-    <div class="tumblr-puzzle-grid" id="galleryGrid"></div>
+    <div class="masonry-grid" id="galleryGrid"></div>
   </main>
 
   <footer>
@@ -13478,9 +13484,6 @@
       filtered.forEach(item => {
         const card = document.createElement('div');
         card.className = 'photo-card';
-
-        const ratio = item.aspect_ratio || 1.778;
-        card.style.setProperty('--ratio', ratio);
 
         const baseSrc = item.base_url;
         const hoverSrc = item.hover_url || item.base_url;
