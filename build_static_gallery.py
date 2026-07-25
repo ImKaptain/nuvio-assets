@@ -306,7 +306,7 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* --- BOLD STATEMENT HERO SECTION (3-ROW CENTER ALIGNED) --- */
+    /* --- BOLD HERO SECTION (TYPOGRAPHIC HIERARCHY) --- */
     .hero-section {{
       text-align: center;
       padding: 3.5rem 1.5rem 2rem;
@@ -315,15 +315,45 @@ def generate_gallery_html(assets):
     }}
 
     .hero-title {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }}
+
+    /* MEDIUM TOP LINE */
+    .hero-line-top {{
       font-family: 'Outfit', sans-serif;
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-size: clamp(1.5rem, 3.8vw, 2.4rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #a1a1aa;
+      line-height: 1.1;
+    }}
+
+    /* BIG MIDDLE LINE */
+    .hero-line-middle {{
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.8rem, 7.5vw, 5rem);
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: -1.5px;
-      line-height: 1.02;
       color: #ffffff;
-      margin-bottom: 1.2rem;
-      text-align: center;
+      line-height: 1.02;
+      margin: 0.15rem 0;
+    }}
+
+    /* SMALL BOTTOM LINE */
+    .hero-line-bottom {{
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #71717a;
+      line-height: 1.1;
     }}
 
     .hero-subtitle {{
@@ -775,12 +805,12 @@ def generate_gallery_html(assets):
     </div>
   </header>
 
-  <!-- STATEMENT HERO SECTION (3 ROWS CENTER ALIGNED) -->
+  <!-- STATEMENT HERO SECTION (MEDIUM TOP, BIG MIDDLE, SMALL BOTTOM) -->
   <section class="hero-section">
     <h1 class="hero-title">
-      Kaptain's<br>
-      Mega Collection<br>
-      of Assets
+      <span class="hero-line-top">Kaptain's</span>
+      <span class="hero-line-middle">Mega Collection</span>
+      <span class="hero-line-bottom">of Assets</span>
     </h1>
     <p class="hero-subtitle">Official portfolio for Nuvio covers, dynamic daily artwork, hero backdrops, and title logos.</p>
     
@@ -1144,7 +1174,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean 3-Row Center-Aligned Header Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Typographic Hierarchy Header Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
