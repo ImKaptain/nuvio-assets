@@ -19,13 +19,13 @@ def classify_asset_type(root_folder, file_path):
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
         
-    # International Cinema cards have Outline, Hybrid, FilmStripFlag, FilmStripHybrid, Flag, Poster styles
+    # International Cinema cards
     if lower_root == 'international cinema' or 'international cinema' in lower_path:
         if 'background' in lower_path or 'backdrop' in lower_path or 'wallpaper' in lower_path:
             return 'backdrops'
         return 'covers'
         
-    # Regex check for T1, T2, T3, T4, T5 collage variations (e.g. T1_1080p, T2_4K, _T1_)
+    # Regex check for T1, T2, T3, T4, T5 collage variations
     is_t_backdrop = bool(re.search(r'(^|[\b_])t[1-9]([\b_.]|\d)', filename))
         
     # Strict backdrop, collage, banner, and variant keywords
@@ -64,8 +64,8 @@ def get_image_dimensions(full_path):
         return 1920, 1080, 1.778, 'landscape'
 
 def scan_assets():
-    """Scans all folders in nuvio-assets and organizes them strictly into clean asset types with orientation data."""
-    assets = []
+    """Scans all folders in nuvio-assets, organizes them strictly, and groups style variants."""
+    raw_assets = []
     ignore_dirs = {'.git', '.github', 'nuvio-share-hub', 'scratch', 'assets', 'Collection_Cards'}
     
     for root, dirs, files in os.walk(ASSET_DIR):
@@ -76,8 +76,8 @@ def scan_assets():
             continue
             
         parts = rel_root.replace('\\', '/').split('/')
-        category = parts[0]
-        subfolder = parts[1] if len(parts) > 1 else ""
+        category = parts[0].replace('_', ' ')
+        subfolder = parts[1].replace('_', ' ') if len(parts) > 1 else ""
         is_gallery = "Gallery" in parts
         
         grouped = {}
@@ -105,7 +105,7 @@ def scan_assets():
             if item_key not in grouped:
                 w, h, ratio, orientation = get_image_dimensions(full_file_path)
                 grouped[item_key] = {
-                    'id': f"{category}_{subfolder}_{clean_name}".replace(' ', '_'),
+                    'id': f"{category}_{subfolder}_{clean_name}".replace(' ', '_').replace('/', '_'),
                     'title': clean_name.replace('_', ' '),
                     'type': asset_type,  # 'covers' | 'backdrops' | 'logos'
                     'category': category,
@@ -130,11 +130,37 @@ def scan_assets():
                     
         for item in grouped.values():
             if item['base_url']:
-                assets.append(item)
+                raw_assets.append(item)
                 
+    # --- DE-DUPLICATION & GROUPING FOR INTERNATIONAL CINEMA AND VARIANTS ---
+    # Pick canonical primary card for main grid (e.g. Outline or Base) and link variations
+    final_assets = []
+    intl_grouped = {}
+
+    for item in raw_assets:
+        if item['category'] == 'International Cinema' and item['type'] == 'covers':
+            # Extract country name e.g. 'German Cinema' from 'German Cinema Outline'
+            country_key = item['subfolder'] if item['subfolder'] else item['title']
+            for style in ['FilmStripFlag', 'FilmStripHybrid', 'Flag', 'Hybrid', 'Outline', 'Poster']:
+                if style.lower() in country_key.lower():
+                    country_key = country_key.replace(style, '').strip()
+            
+            if country_key not in intl_grouped:
+                intl_grouped[country_key] = []
+            intl_grouped[country_key].append(item)
+        else:
+            final_assets.append(item)
+
+    # For each International Cinema country, select the 'Outline' or primary card as main grid card
+    for country, variants in intl_grouped.items():
+        # Prefer Outline style (the live Nuvio card)
+        primary = next((v for v in variants if 'outline' in v['title'].lower()), variants[0])
+        primary['title'] = country  # Clean display title e.g. "German Cinema"
+        final_assets.append(primary)
+
     # Sort ALL assets alphabetically by title for a diverse, rich mix
-    assets.sort(key=lambda x: x['title'].lower())
-    return assets
+    final_assets.sort(key=lambda x: x['title'].lower())
+    return final_assets
 
 def generate_gallery_html(assets):
     manifest_json = json.dumps(assets, indent=2)
@@ -144,7 +170,7 @@ def generate_gallery_html(assets):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kaptain's Mega Collection of Assets • Official Portfolio</title>
+  <title>Kaptain's Mega Collection • Official Nuvio Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -158,6 +184,8 @@ def generate_gallery_html(assets):
       --text-muted: #9ca3af;
       --border: rgba(255, 255, 255, 0.1);
       --radius: 12px;
+      --radius-pill: 24px;
+      --radius-sm: 6px;
     }}
 
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -172,7 +200,7 @@ def generate_gallery_html(assets):
       -webkit-font-smoothing: antialiased;
     }}
 
-    /* --- SLEEK HEADER BAR --- */
+    /* --- ART-DIRECTED HEADER BAR --- */
     header {{
       background: var(--bg-header);
       backdrop-filter: blur(20px);
@@ -236,12 +264,12 @@ def generate_gallery_html(assets):
       font-family: 'Outfit', sans-serif;
       font-size: 0.88rem;
       font-weight: 700;
-      padding: 0.5rem 1rem;
+      padding: 0.55rem 1.1rem;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
       transition: all 0.2s ease;
     }}
 
@@ -254,20 +282,6 @@ def generate_gallery_html(assets):
       color: #000000;
       background: #ffffff;
       border-color: #ffffff;
-    }}
-
-    .nav-badge {{
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--text-muted);
-      font-size: 0.72rem;
-      padding: 0.15rem 0.45rem;
-      border-radius: 10px;
-      font-weight: 600;
-    }}
-
-    .nav-tab.active .nav-badge {{
-      background: #000000;
-      color: #ffffff;
     }}
 
     .header-right {{
@@ -286,7 +300,7 @@ def generate_gallery_html(assets):
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 0.5rem 1rem 0.5rem 2.4rem;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
       border-radius: 20px;
       font-size: 0.85rem;
       outline: none;
@@ -297,19 +311,20 @@ def generate_gallery_html(assets):
       border-color: #ffffff;
     }}
 
-    .search-icon {{
+    .search-icon-svg {{
       position: absolute;
       left: 0.85rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 0.85rem;
+      width: 16px;
+      height: 16px;
     }}
 
-    /* --- BOLD HERO SECTION (BALANCED TYPOGRAPHIC SCALE) --- */
+    /* --- EDITORIAL HERO SECTION --- */
     .hero-section {{
       text-align: center;
-      padding: 3rem 1.5rem 1.8rem;
+      padding: 3.5rem 1.5rem 2rem;
       max-width: 1100px;
       margin: 0 auto;
     }}
@@ -322,7 +337,6 @@ def generate_gallery_html(assets):
       margin-bottom: 1rem;
     }}
 
-    /* MEDIUM TOP LINE */
     .hero-line-top {{
       font-family: 'Outfit', sans-serif;
       font-size: clamp(1.2rem, 2.5vw, 1.6rem);
@@ -333,7 +347,6 @@ def generate_gallery_html(assets):
       line-height: 1.1;
     }}
 
-    /* BALANCED MIDDLE LINE (REDUCED SIZE) */
     .hero-line-middle {{
       font-family: 'Outfit', sans-serif;
       font-size: clamp(2rem, 4.5vw, 3.2rem);
@@ -345,7 +358,6 @@ def generate_gallery_html(assets):
       margin: 0.1rem 0;
     }}
 
-    /* SMALL BOTTOM LINE */
     .hero-line-bottom {{
       font-family: 'Outfit', sans-serif;
       font-size: clamp(0.9rem, 1.8vw, 1.2rem);
@@ -376,7 +388,7 @@ def generate_gallery_html(assets):
       border: 1px solid var(--border);
       color: var(--text-muted);
       padding: 0.4rem 1rem;
-      border-radius: 20px;
+      border-radius: var(--radius-pill);
       font-family: 'Outfit', sans-serif;
       font-size: 0.82rem;
       font-weight: 700;
@@ -458,7 +470,7 @@ def generate_gallery_html(assets):
       transition: opacity 0.3s ease;
     }}
 
-    /* HOVER OVERLAY (DUAL COPY BUTTONS & DETAILS) */
+    /* HOVER OVERLAY (CLEAN OVERLAY, NO GHOST TEXT) */
     .hover-overlay {{
       position: absolute;
       inset: 0;
@@ -489,7 +501,7 @@ def generate_gallery_html(assets):
       font-size: 0.75rem;
       font-weight: 600;
       padding: 0.25rem 0.6rem;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
     }}
 
     .dynamic-tag {{
@@ -531,14 +543,14 @@ def generate_gallery_html(assets):
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.25);
       padding: 0.45rem 0.6rem;
-      border-radius: 6px;
+      border-radius: var(--radius-sm);
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
       transition: all 0.2s ease;
       white-space: nowrap;
     }}
@@ -553,6 +565,41 @@ def generate_gallery_html(assets):
       background: #10b981;
       border-color: #10b981;
       color: #ffffff;
+    }}
+
+    /* EMPTY STATE CONTAINER */
+    .empty-state {{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      margin-top: 1rem;
+    }}
+
+    .empty-title {{
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }}
+
+    .empty-btn {{
+      margin-top: 1rem;
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
     }}
 
     /* --- LIGHTBOX DETAIL MODAL --- */
@@ -783,29 +830,29 @@ def generate_gallery_html(assets):
       <!-- PRIMARY NAV TABS -->
       <nav class="primary-nav" id="primaryNav">
         <button class="nav-tab active" data-type="covers">
-          🎨 Covers <span class="nav-badge" id="badgeCovers">0</span>
+          Covers
         </button>
         <button class="nav-tab" data-type="backdrops">
-          🖼️ Hero Backdrops <span class="nav-badge" id="badgeBackdrops">0</span>
+          Hero Backdrops
         </button>
         <button class="nav-tab" data-type="logos">
-          🏷️ Title Logos <span class="nav-badge" id="badgeLogos">0</span>
+          Title Logos
         </button>
         <button class="nav-tab" data-type="archive">
-          📸 Gallery Archive <span class="nav-badge" id="badgeArchive">0</span>
+          Gallery Archive
         </button>
       </nav>
 
       <div class="header-right">
         <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Search covers & assets...">
+          <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Search covers & artwork...">
         </div>
       </div>
     </div>
   </header>
 
-  <!-- STATEMENT HERO SECTION (REFINED BALANCED SCALE) -->
+  <!-- STATEMENT HERO SECTION (BALANCED SCALE) -->
   <section class="hero-section">
     <h1 class="hero-title">
       <span class="hero-line-top">Kaptain's</span>
@@ -826,8 +873,13 @@ def generate_gallery_html(assets):
   </section>
 
   <main>
-    <div class="section-label" id="sectionLabel">LATEST COVERS (SHOWING 0)</div>
+    <div class="section-label" id="sectionLabel">CURATED COVERS</div>
     <div class="masonry-grid" id="galleryGrid"></div>
+    <div class="empty-state" id="emptyState" style="display: none;">
+      <div class="empty-title">No artwork found</div>
+      <div>Try adjusting your search terms or resetting filters.</div>
+      <button class="empty-btn" id="resetFiltersBtn">Reset Filters</button>
+    </div>
   </main>
 
   <!-- LIGHTBOX DETAIL MODAL -->
@@ -868,7 +920,7 @@ def generate_gallery_html(assets):
   </div>
 
   <footer>
-    <p>Kaptain's Mega Collection • Official Nuvio Asset Portfolio hosted on GitHub Pages</p>
+    <p>Kaptain's Mega Collection • Curated Visual Artwork & Nuvio Asset Portfolio • © 2026</p>
   </footer>
 
   <script>
@@ -884,6 +936,8 @@ def generate_gallery_html(assets):
     const navTabs = document.querySelectorAll('.nav-tab');
     const subBtns = document.querySelectorAll('.sub-btn');
     const subFilterBar = document.getElementById('subFilterBar');
+    const emptyState = document.getElementById('emptyState');
+    const resetFiltersBtn = document.getElementById('resetFiltersBtn');
 
     // Modal elements
     const detailModal = document.getElementById('detailModal');
@@ -899,16 +953,17 @@ def generate_gallery_html(assets):
     const relatedSection = document.getElementById('relatedSection');
     const relatedGrid = document.getElementById('relatedGrid');
 
-    // Update Counts
-    const coversCount = ASSETS.filter(a => a.type === 'covers' && !a.is_gallery).length;
-    const backdropsCount = ASSETS.filter(a => a.type === 'backdrops' && !a.is_gallery).length;
-    const logosCount = ASSETS.filter(a => a.type === 'logos').length;
-    const archiveCount = ASSETS.filter(a => a.is_gallery).length;
-
-    document.getElementById('badgeCovers').textContent = coversCount;
-    document.getElementById('badgeBackdrops').textContent = backdropsCount;
-    document.getElementById('badgeLogos').textContent = logosCount;
-    document.getElementById('badgeArchive').textContent = archiveCount;
+    resetFiltersBtn.addEventListener('click', () => {{
+      activeType = 'covers';
+      activeSub = 'all';
+      searchInput.value = '';
+      navTabs.forEach(t => t.classList.remove('active'));
+      document.querySelector('[data-type="covers"]').classList.add('active');
+      subBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-sub="all"]').classList.add('active');
+      subFilterBar.style.display = 'flex';
+      renderGrid();
+    }});
 
     function renderGrid() {{
       const query = searchInput.value.toLowerCase().trim();
@@ -954,8 +1009,16 @@ def generate_gallery_html(assets):
 
       let typeName = activeType.toUpperCase();
       if (activeType === 'covers' && activeSub !== 'all') typeName = activeSub.toUpperCase();
-      sectionLabel.textContent = `LATEST ${{typeName}} (SHOWING ${{filtered.length}})`;
+      sectionLabel.textContent = `CURATED ${{typeName}}`;
       grid.innerHTML = '';
+
+      if (filtered.length === 0) {{
+        grid.style.display = 'none';
+        emptyState.style.display = 'flex';
+      }} else {{
+        grid.style.display = 'block';
+        emptyState.style.display = 'none';
+      }}
 
       filtered.forEach(item => {{
         const card = document.createElement('div');
@@ -965,8 +1028,8 @@ def generate_gallery_html(assets):
         const hoverSrc = item.hover_url || item.base_url;
 
         let badgeText = item.category;
-        if (item.is_dynamic) badgeText = '⚡ Dynamic';
-        else if (item.is_gallery) badgeText = '📸 Archive';
+        if (item.is_dynamic) badgeText = 'Dynamic';
+        else if (item.is_gallery) badgeText = 'Archive';
 
         card.innerHTML = `
           <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy">
@@ -981,9 +1044,9 @@ def generate_gallery_html(assets):
               </div>
               <div class="dual-copy-group">
                 <button class="copy-btn-sm copy-png-btn" data-url="${{baseSrc}}">
-                  <span>📋 PNG</span>
+                  <span>PNG</span>
                 </button>
-                ${{item.hover_url ? `<button class="copy-btn-sm copy-gif-btn" data-url="${{item.hover_url}}"><span>✨ GIF</span></button>` : ''}}
+                ${{item.hover_url ? `<button class="copy-btn-sm copy-gif-btn" data-url="${{item.hover_url}}"><span>GIF</span></button>` : ''}}
               </div>
             </div>
           </div>
@@ -1007,7 +1070,7 @@ def generate_gallery_html(assets):
             copyPngBtn.querySelector('span').textContent = '✓ Copied!';
             setTimeout(() => {{
               copyPngBtn.classList.remove('copied');
-              copyPngBtn.querySelector('span').textContent = '📋 PNG';
+              copyPngBtn.querySelector('span').textContent = 'PNG';
             }}, 2000);
           }});
         }}
@@ -1022,7 +1085,7 @@ def generate_gallery_html(assets):
             copyGifBtn.querySelector('span').textContent = '✓ Copied!';
             setTimeout(() => {{
               copyGifBtn.classList.remove('copied');
-              copyGifBtn.querySelector('span').textContent = '✨ GIF';
+              copyGifBtn.querySelector('span').textContent = 'GIF';
             }}, 2000);
           }});
         }}
@@ -1174,7 +1237,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Balanced Header Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Master Editorial Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
