@@ -1,5 +1,6 @@
 import os
 import json
+from PIL import Image
 
 ASSET_DIR = os.path.dirname(os.path.abspath(__file__))
 GITHUB_RAW_BASE = "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main"
@@ -14,15 +15,35 @@ def classify_asset_type(root_folder, file_path):
     elif (lower_root.startswith('nuvio_backdrops_') or 
           'backdrop' in lower_path or 
           'backdrop' in lower_root or 
+          'background' in lower_path or 
+          'background' in lower_root or 
           'prism' in lower_path or 
           'wallpaper' in lower_path or 
-          'hero' in lower_path):
+          'fanart' in lower_path or 
+          'hero' in lower_path or 
+          'banner' in lower_path):
         return 'backdrops'
     else:
         return 'covers'
 
+def get_image_dimensions(full_path):
+    """Reads image dimensions and computes orientation & aspect ratio."""
+    try:
+        with Image.open(full_path) as img:
+            w, h = img.size
+            ratio = round(w / h, 3)
+            if h > w * 1.1:
+                orientation = 'portrait'
+            elif w > h * 1.1:
+                orientation = 'landscape'
+            else:
+                orientation = 'square'
+            return w, h, ratio, orientation
+    except Exception:
+        return 1920, 1080, 1.778, 'landscape'
+
 def scan_assets():
-    """Scans all folders in nuvio-assets and organizes them strictly into clean asset types."""
+    """Scans all folders in nuvio-assets and organizes them strictly into clean asset types with orientation data."""
     assets = []
     ignore_dirs = {'.git', '.github', 'nuvio-share-hub', 'scratch', 'assets'}
     
@@ -43,6 +64,7 @@ def scan_assets():
             if not (f.endswith('.png') or f.endswith('.jpg') or f.endswith('.gif')):
                 continue
                 
+            full_file_path = os.path.join(root, f)
             rel_file_path = os.path.join(rel_root, f).replace('\\', '/')
             raw_url = f"{GITHUB_RAW_BASE}/{rel_file_path.replace(' ', '%20')}"
             
@@ -57,6 +79,7 @@ def scan_assets():
             asset_type = classify_asset_type(category, rel_file_path)
             
             if item_key not in grouped:
+                w, h, ratio, orientation = get_image_dimensions(full_file_path)
                 grouped[item_key] = {
                     'title': clean_name.replace('_', ' '),
                     'type': asset_type,  # 'covers' | 'backdrops' | 'logos'
@@ -66,7 +89,11 @@ def scan_assets():
                     'is_dynamic': '_Dynamic' in f,
                     'base_url': None,
                     'hover_url': None,
-                    'file_path': rel_file_path
+                    'file_path': rel_file_path,
+                    'width': w,
+                    'height': h,
+                    'aspect_ratio': ratio,
+                    'orientation': orientation
                 }
                 
             if f.endswith(('Base.png', 'Base_Dynamic.png', '.png', '.jpg')):
@@ -97,7 +124,7 @@ def generate_gallery_html(assets):
   <style>
     :root {{
       --bg-dark: #070709;
-      --bg-header: rgba(10, 10, 14, 0.85);
+      --bg-header: rgba(10, 10, 14, 0.88);
       --accent: #8b5cf6;
       --accent-glow: rgba(139, 92, 246, 0.4);
       --text-main: #f9fafb;
@@ -247,7 +274,7 @@ def generate_gallery_html(assets):
       color: var(--accent);
     }}
 
-    /* --- SECONDARY SUB-FILTERS (For Covers tab) --- */
+    /* --- SECONDARY SUB-FILTERS (Only visible on Covers tab) --- */
     .sub-filter-bar {{
       max-width: 1600px;
       margin: 0.75rem auto 0;
@@ -294,23 +321,34 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* CLEAN UNCLUTTERED TUMBLR / PHOTOGRAPHER GRID */
-    .gallery-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
+    /* MASONRY / FLEXIBLE CANVAS MAPPING GRID */
+    .masonry-columns {{
+      column-count: 5;
+      column-gap: 1.25rem;
     }}
 
-    /* ZERO-CLUTTER PHOTO CARD */
+    @media (max-width: 1400px) {{
+      .masonry-columns {{ column-count: 4; }}
+    }}
+    @media (max-width: 1024px) {{
+      .masonry-columns {{ column-count: 3; }}
+    }}
+    @media (max-width: 640px) {{
+      .masonry-columns {{ column-count: 2; }}
+    }}
+
+    /* ZERO-CLUTTER ORIENTATION-MATCHED PHOTO CARD */
     .photo-card {{
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
       position: relative;
-      aspect-ratio: 16/9;
       background: #050508;
       border-radius: var(--radius);
       overflow: hidden;
       cursor: pointer;
       border: 1px solid var(--border);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      width: 100%;
     }}
 
     .photo-card:hover {{
@@ -321,8 +359,7 @@ def generate_gallery_html(assets):
 
     .photo-card img {{
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
       transition: opacity 0.3s ease;
     }}
@@ -331,7 +368,7 @@ def generate_gallery_html(assets):
     .hover-overlay {{
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
       opacity: 0;
       display: flex;
       flex-direction: column;
@@ -469,7 +506,7 @@ def generate_gallery_html(assets):
 
   <main>
     <div class="status-summary" id="statsSummary">Loading gallery...</div>
-    <div class="gallery-grid" id="galleryGrid"></div>
+    <div class="masonry-columns" id="galleryGrid"></div>
   </main>
 
   <footer>
@@ -547,7 +584,7 @@ def generate_gallery_html(assets):
         else if (item.is_gallery) badgeText = '📸 Archive';
 
         card.innerHTML = `
-          <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy">
+          <img src="${{baseSrc}}" alt="${{item.title}}" loading="lazy" style="aspect-ratio: ${{item.aspect_ratio || 'auto'}};">
           <div class="hover-overlay">
             <div class="overlay-top">
               <span class="overlay-tag ${{item.is_dynamic ? 'dynamic-tag' : ''}}">${{badgeText}}</span>
@@ -632,7 +669,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean zero-clutter Photographer Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Tumblr-style Portfolio HTML with orientation canvas matching at: {out_file}")
 
 if __name__ == '__main__':
     main()
