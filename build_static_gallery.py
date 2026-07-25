@@ -144,40 +144,37 @@ def generate_gallery_html(assets):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuvio Art Portfolio • Official Gallery</title>
+  <title>JUST GIVE ME THE F*CKING ASSETS • Nuvio Art Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {{
-      --bg-dark: #070709;
-      --bg-header: rgba(10, 10, 14, 0.88);
-      --accent: #8b5cf6;
-      --accent-hover: #7c3aed;
-      --accent-glow: rgba(139, 92, 246, 0.4);
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --border: rgba(255, 255, 255, 0.08);
-      --radius: 12px;
+      --bg-main: #ffffff;
+      --bg-card: #f9fafb;
+      --text-main: #000000;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #000000;
+      --accent-purple: #8b5cf6;
+      --radius: 10px;
     }}
 
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
     body {{
-      background-color: var(--bg-dark);
+      background-color: var(--bg-main);
       color: var(--text-main);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }}
 
-    /* --- MINIMAL HEADER & NAVIGATION --- */
+    /* --- EDITORIAL HEADER BAR --- */
     header {{
-      background: var(--bg-header);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: #ffffff;
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -187,62 +184,143 @@ def generate_gallery_html(assets):
     .header-top {{
       max-width: 1600px;
       margin: 0 auto;
-      padding: 1rem 2rem;
+      padding: 0.85rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 1.5rem;
     }}
 
-    .brand {{
+    .header-left {{
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--text-main);
+      gap: 1.25rem;
     }}
 
-    .brand-logo {{
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, #8b5cf6, #ec4899);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .brand-asterisk {{
+      font-size: 2rem;
       font-weight: 900;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1rem;
-      box-shadow: 0 4px 15px var(--accent-glow);
+      line-height: 1;
+      text-decoration: none;
+      color: #000;
+      transition: transform 0.3s ease;
     }}
 
-    .brand-text {{
+    .brand-asterisk:hover {{
+      transform: rotate(90deg);
+    }}
+
+    /* CATEGORIES DROPDOWN MENU */
+    .dropdown-container {{
+      position: relative;
+    }}
+
+    .cat-dropdown-btn {{
+      background: transparent;
+      border: none;
       font-family: 'Outfit', sans-serif;
-      font-size: 1.25rem;
+      font-size: 0.88rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #000;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }}
+
+    .cat-dropdown-btn:hover {{
+      background: #f3f4f6;
+    }}
+
+    .cat-menu {{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.4rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      width: 220px;
+      display: none;
+      flex-direction: column;
+      padding: 0.4rem 0;
+      z-index: 200;
+    }}
+
+    .cat-menu.open {{
+      display: flex;
+    }}
+
+    .cat-item {{
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 0.6rem 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #374151;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+    }}
+
+    .cat-item:hover, .cat-item.active {{
+      background: #000;
+      color: #fff;
+    }}
+
+    .browse-all-btn {{
+      background: #000000;
+      color: #ffffff;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }}
+
+    .browse-all-btn:hover {{
+      background: #333333;
+    }}
+
+    .header-center {{
+      flex: 1;
+      max-width: 480px;
     }}
 
     .search-box {{
       position: relative;
-      width: 320px;
+      width: 100%;
     }}
 
     .search-box input {{
       width: 100%;
-      background: rgba(255, 255, 255, 0.05);
+      background: #ffffff;
       border: 1px solid var(--border);
-      color: var(--text-main);
+      color: #000;
       padding: 0.55rem 1rem 0.55rem 2.4rem;
-      border-radius: 20px;
+      border-radius: 4px;
       font-size: 0.88rem;
       outline: none;
-      transition: all 0.25s ease;
+      transition: border-color 0.2s ease;
     }}
 
     .search-box input:focus {{
-      border-color: var(--accent);
-      box-shadow: 0 0 16px var(--accent-glow);
+      border-color: #000;
     }}
 
     .search-icon {{
@@ -254,102 +332,89 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* --- PRIMARY NAVIGATION TABS --- */
-    .primary-nav {{
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      gap: 0.5rem;
-    }}
-
-    .nav-tab {{
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      padding: 0.75rem 1.2rem;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
+    .header-right {{
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
+      gap: 1rem;
     }}
 
-    .nav-tab:hover {{
-      color: var(--text-main);
-    }}
-
-    .nav-tab.active {{
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }}
-
-    .nav-badge {{
-      background: rgba(255, 255, 255, 0.08);
+    .stat-pill {{
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
       color: var(--text-muted);
-      font-size: 0.72rem;
-      padding: 0.15rem 0.5rem;
-      border-radius: 12px;
-      font-weight: 500;
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
     }}
 
-    .nav-tab.active .nav-badge {{
-      background: rgba(139, 92, 246, 0.2);
-      color: var(--accent);
+    /* --- MASSIVE STATEMENT HERO --- */
+    .hero-statement {{
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
     }}
 
-    /* --- SECONDARY SUB-FILTERS (Only visible on Covers tab) --- */
+    .hero-title {{
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -1.5px;
+      line-height: 0.95;
+      color: #000000;
+      margin-bottom: 1.5rem;
+    }}
+
     .sub-filter-bar {{
-      max-width: 1600px;
-      margin: 0.75rem auto 0;
-      padding: 0 2rem 0.75rem;
       display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
       gap: 0.5rem;
-      overflow-x: auto;
-      scrollbar-width: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      padding-top: 0.75rem;
+      margin-top: 1rem;
     }}
 
     .sub-btn {{
-      background: rgba(255, 255, 255, 0.04);
+      background: #ffffff;
       border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 0.35rem 0.85rem;
+      color: #374151;
+      padding: 0.4rem 0.95rem;
       border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
       cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }}
 
     .sub-btn:hover, .sub-btn.active {{
-      background: rgba(139, 92, 246, 0.15);
-      color: #fff;
-      border-color: rgba(139, 92, 246, 0.4);
+      background: #000000;
+      color: #ffffff;
+      border-color: #000000;
     }}
 
-    /* --- MAIN GALLERY GRID --- */
+    /* --- MAIN CONTENT & GRID --- */
     main {{
       max-width: 1600px;
-      margin: 1.5rem auto;
+      margin: 1rem auto 3rem;
       padding: 0 2rem;
       flex-grow: 1;
       width: 100%;
     }}
 
-    .status-summary {{
-      margin-bottom: 1.2rem;
-      color: var(--text-muted);
+    .section-label {{
+      font-family: 'Outfit', sans-serif;
       font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
     }}
 
-    /* ZERO-CLIPPING MASONRY COLUMN GRID */
+    /* EDITORIAL MASONRY GRID */
     .masonry-grid {{
       column-count: 4;
       column-gap: 1.25rem;
@@ -365,24 +430,24 @@ def generate_gallery_html(assets):
       .masonry-grid {{ column-count: 1; }}
     }}
 
-    /* PHOTO CARD */
+    /* EDITORIAL CARD DESIGN */
     .photo-card {{
       break-inside: avoid;
       margin-bottom: 1.25rem;
       position: relative;
-      background: #050508;
+      background: #f9fafb;
       border-radius: var(--radius);
       overflow: hidden;
       cursor: pointer;
       border: 1px solid var(--border);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       width: 100%;
     }}
 
     .photo-card:hover {{
-      transform: scale(1.02);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8);
-      z-index: 10;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      border-color: #000000;
     }}
 
     .photo-card img {{
@@ -392,11 +457,11 @@ def generate_gallery_html(assets):
       transition: opacity 0.3s ease;
     }}
 
-    /* HOVER OVERLAY */
+    /* HOVER OVERLAY (DUAL COPY BUTTONS & DETAILS) */
     .hover-overlay {{
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.82) 70%, rgba(0,0,0,0.92) 100%);
       opacity: 0;
       display: flex;
       flex-direction: column;
@@ -416,20 +481,19 @@ def generate_gallery_html(assets):
     }}
 
     .overlay-tag {{
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
+      background: rgba(255, 255, 255, 0.95);
+      color: #000;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
       padding: 0.25rem 0.6rem;
-      border-radius: 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
     }}
 
     .dynamic-tag {{
-      background: linear-gradient(135deg, #10b981, #059669);
-      border: none;
+      background: #10b981;
+      color: #fff;
     }}
 
     .overlay-bottom {{
@@ -441,8 +505,8 @@ def generate_gallery_html(assets):
     .card-title {{
       font-family: 'Outfit', sans-serif;
       font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
+      font-weight: 800;
+      color: #ffffff;
       line-height: 1.2;
       white-space: nowrap;
       overflow: hidden;
@@ -461,13 +525,14 @@ def generate_gallery_html(assets):
 
     .copy-btn-sm {{
       flex: 1;
-      background: rgba(139, 92, 246, 0.25);
-      color: #fff;
-      border: 1px solid rgba(139, 92, 246, 0.4);
+      background: #ffffff;
+      color: #000000;
+      border: none;
       padding: 0.45rem 0.6rem;
-      border-radius: 6px;
+      border-radius: 4px;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -478,23 +543,22 @@ def generate_gallery_html(assets):
     }}
 
     .copy-btn-sm:hover {{
-      background: var(--accent);
-      border-color: var(--accent);
-      box-shadow: 0 4px 12px var(--accent-glow);
+      background: #000000;
+      color: #ffffff;
     }}
 
     .copy-btn-sm.copied {{
       background: #10b981;
-      border-color: #10b981;
+      color: #ffffff;
     }}
 
     /* --- LIGHTBOX DETAIL MODAL --- */
     .modal-backdrop {{
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -502,7 +566,7 @@ def generate_gallery_html(assets):
       padding: 2rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease;
     }}
 
     .modal-backdrop.open {{
@@ -511,23 +575,20 @@ def generate_gallery_html(assets):
     }}
 
     .modal-card {{
-      background: #111116;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      max-width: 1100px;
+      background: #ffffff;
+      border-radius: 12px;
+      max-width: 1050px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 360px;
       position: relative;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
     }}
 
     @media (max-width: 900px) {{
-      .modal-card {{
-        grid-template-columns: 1fr;
-      }}
+      .modal-card {{ grid-template-columns: 1fr; }}
     }}
 
     .modal-close {{
@@ -536,63 +597,67 @@ def generate_gallery_html(assets):
       right: 1rem;
       width: 36px;
       height: 36px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+      color: #000;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 900;
       z-index: 20;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease;
     }}
 
     .modal-close:hover {{
-      background: rgba(255, 255, 255, 0.2);
+      background: #000;
+      color: #fff;
     }}
 
     .modal-image-area {{
-      background: #000;
+      background: #f9fafb;
       padding: 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
+      border-right: 1px solid var(--border);
     }}
 
     .modal-image-area img {{
       max-width: 100%;
       max-height: 65vh;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 6px;
     }}
 
     .view-toggle-bar {{
       margin-top: 1rem;
       display: flex;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 0.3rem;
-      border-radius: 8px;
+      gap: 0.4rem;
+      background: #e5e7eb;
+      padding: 0.25rem;
+      border-radius: 6px;
     }}
 
     .view-toggle-btn {{
       background: transparent;
       border: none;
-      color: var(--text-muted);
+      color: #4b5563;
       padding: 0.3rem 0.8rem;
-      border-radius: 6px;
+      border-radius: 4px;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.78rem;
-      font-weight: 600;
+      font-weight: 800;
       cursor: pointer;
     }}
 
     .view-toggle-btn.active {{
-      background: var(--accent);
-      color: #fff;
+      background: #000000;
+      color: #ffffff;
     }}
 
     .modal-info-area {{
@@ -600,13 +665,13 @@ def generate_gallery_html(assets):
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      border-left: 1px solid var(--border);
     }}
 
     .modal-title {{
       font-family: 'Outfit', sans-serif;
       font-size: 1.4rem;
-      font-weight: 800;
+      font-weight: 900;
+      color: #000;
     }}
 
     .modal-meta-list {{
@@ -624,30 +689,29 @@ def generate_gallery_html(assets):
     }}
 
     .modal-copy-btn {{
-      background: rgba(139, 92, 246, 0.15);
-      color: #a78bfa;
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      background: #000000;
+      color: #ffffff;
+      border: none;
       padding: 0.75rem 1rem;
-      border-radius: 8px;
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease;
     }}
 
     .modal-copy-btn:hover {{
-      background: var(--accent);
-      color: #fff;
+      background: #333333;
     }}
 
     .modal-copy-btn.copied {{
       background: #10b981;
-      color: #fff;
-      border-color: #10b981;
+      color: #ffffff;
     }}
 
     .related-section {{
@@ -657,8 +721,9 @@ def generate_gallery_html(assets):
     }}
 
     .related-title {{
+      font-family: 'Outfit', sans-serif;
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-muted);
@@ -672,17 +737,17 @@ def generate_gallery_html(assets):
 
     .related-thumb {{
       aspect-ratio: 16/9;
-      background: #000;
+      background: #f3f4f6;
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
-      border: 1px solid transparent;
+      border: 1px solid var(--border);
       transition: all 0.2s ease;
     }}
 
     .related-thumb:hover {{
-      border-color: var(--accent);
-      transform: scale(1.05);
+      border-color: #000;
+      transform: scale(1.04);
     }}
 
     .related-thumb img {{
@@ -693,7 +758,7 @@ def generate_gallery_html(assets):
 
     footer {{
       border-top: 1px solid var(--border);
-      padding: 2rem;
+      padding: 2.5rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
@@ -705,33 +770,40 @@ def generate_gallery_html(assets):
 
   <header>
     <div class="header-top">
-      <a href="#" class="brand">
-        <div class="brand-logo">N</div>
-        <span class="brand-text">NUVIO ART</span>
-      </a>
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search covers...">
+      <div class="header-left">
+        <a href="#" class="brand-asterisk" title="Nuvio Art">✳</a>
+        <div class="dropdown-container">
+          <button class="cat-dropdown-btn" id="catDropdownBtn">
+            CATEGORIES <span style="font-size:0.7rem">▼</span>
+          </button>
+          <div class="cat-menu" id="catMenu">
+            <button class="cat-item active" data-type="covers">🎨 Covers <span id="badgeCovers">0</span></button>
+            <button class="cat-item" data-type="backdrops">🖼️ Hero Backdrops <span id="badgeBackdrops">0</span></button>
+            <button class="cat-item" data-type="logos">🏷️ Title Logos <span id="badgeLogos">0</span></button>
+            <button class="cat-item" data-type="archive">📸 Gallery Archive <span id="badgeArchive">0</span></button>
+          </div>
+        </div>
+        <button class="browse-all-btn" id="browseAllBtn">BROWSE ALL</button>
+      </div>
+
+      <div class="header-center">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search covers & assets...">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <span class="stat-pill" id="statPill">868 ASSETS</span>
       </div>
     </div>
+  </header>
 
-    <!-- PRIMARY NAV TABS -->
-    <div class="primary-nav" id="primaryNav">
-      <button class="nav-tab active" data-type="covers">
-        🎨 Covers <span class="nav-badge" id="badgeCovers">0</span>
-      </button>
-      <button class="nav-tab" data-type="backdrops">
-        🖼️ Hero Backdrops <span class="nav-badge" id="badgeBackdrops">0</span>
-      </button>
-      <button class="nav-tab" data-type="logos">
-        🏷️ Title Logos <span class="nav-badge" id="badgeLogos">0</span>
-      </button>
-      <button class="nav-tab" data-type="archive">
-        📸 Gallery Archive <span class="nav-badge" id="badgeArchive">0</span>
-      </button>
-    </div>
-
-    <!-- SECONDARY SUB-FILTERS (Only visible on Covers tab) -->
+  <!-- MASSIVE STATEMENT HERO -->
+  <section class="hero-statement">
+    <h1 class="hero-title">JUST GIVE ME THE<br>F*CKING ASSETS</h1>
+    
+    <!-- SUB-FILTER PILLS FOR COVERS -->
     <div class="sub-filter-bar" id="subFilterBar">
       <button class="sub-btn active" data-sub="all">All Covers</button>
       <button class="sub-btn" data-sub="Genres">Genres</button>
@@ -740,10 +812,10 @@ def generate_gallery_html(assets):
       <button class="sub-btn" data-sub="Streaming Services">Streaming & Networks</button>
       <button class="sub-btn" data-sub="International Cinema">International Cinema</button>
     </div>
-  </header>
+  </section>
 
   <main>
-    <div class="status-summary" id="statsSummary">Loading gallery...</div>
+    <div class="section-label" id="sectionLabel">LATEST COVERS (SHOWING 0)</div>
     <div class="masonry-grid" id="galleryGrid"></div>
   </main>
 
@@ -797,8 +869,11 @@ def generate_gallery_html(assets):
 
     const grid = document.getElementById('galleryGrid');
     const searchInput = document.getElementById('searchInput');
-    const statsSummary = document.getElementById('statsSummary');
-    const navTabs = document.querySelectorAll('.nav-tab');
+    const sectionLabel = document.getElementById('sectionLabel');
+    const catDropdownBtn = document.getElementById('catDropdownBtn');
+    const catMenu = document.getElementById('catMenu');
+    const browseAllBtn = document.getElementById('browseAllBtn');
+    const catItems = document.querySelectorAll('.cat-item');
     const subBtns = document.querySelectorAll('.sub-btn');
     const subFilterBar = document.getElementById('subFilterBar');
 
@@ -816,16 +891,38 @@ def generate_gallery_html(assets):
     const relatedSection = document.getElementById('relatedSection');
     const relatedGrid = document.getElementById('relatedGrid');
 
-    // Update Counts (STRICT CLASSIFICATION)
+    // Update Counts
     const coversCount = ASSETS.filter(a => a.type === 'covers' && !a.is_gallery).length;
     const backdropsCount = ASSETS.filter(a => a.type === 'backdrops' && !a.is_gallery).length;
     const logosCount = ASSETS.filter(a => a.type === 'logos').length;
     const archiveCount = ASSETS.filter(a => a.is_gallery).length;
 
-    document.getElementById('badgeCovers').textContent = coversCount;
-    document.getElementById('badgeBackdrops').textContent = backdropsCount;
-    document.getElementById('badgeLogos').textContent = logosCount;
-    document.getElementById('badgeArchive').textContent = archiveCount;
+    document.getElementById('badgeCovers').textContent = `(${{coversCount}})`;
+    document.getElementById('badgeBackdrops').textContent = `(${{backdropsCount}})`;
+    document.getElementById('badgeLogos').textContent = `(${{logosCount}})`;
+    document.getElementById('badgeArchive').textContent = `(${{archiveCount}})`;
+    document.getElementById('statPill').textContent = `${{ASSETS.length}} ASSETS`;
+
+    // Category Dropdown Toggle
+    catDropdownBtn.addEventListener('click', (e) => {{
+      e.stopPropagation();
+      catMenu.classList.toggle('open');
+    }});
+
+    document.addEventListener('click', () => catMenu.classList.remove('open'));
+
+    // Browse All Reset
+    browseAllBtn.addEventListener('click', () => {{
+      activeType = 'covers';
+      activeSub = 'all';
+      searchInput.value = '';
+      catItems.forEach(i => i.classList.remove('active'));
+      document.querySelector('[data-type="covers"]').classList.add('active');
+      subBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-sub="all"]').classList.add('active');
+      subFilterBar.style.display = 'flex';
+      renderGrid();
+    }});
 
     function renderGrid() {{
       const query = searchInput.value.toLowerCase().trim();
@@ -839,17 +936,17 @@ def generate_gallery_html(assets):
 
         // Archive Tab
         if (activeType === 'archive') return item.is_gallery;
-        if (item.is_gallery) return false; // Strictly hide gallery items from normal tabs
+        if (item.is_gallery) return false;
 
-        // Backdrops Tab (STRICT)
+        // Backdrops Tab
         if (activeType === 'backdrops') return item.type === 'backdrops';
         
-        // Logos Tab (STRICT)
+        // Logos Tab
         if (activeType === 'logos') return item.type === 'logos';
         
-        // Covers Tab (STRICT: MUST BE TYPE 'COVERS')
+        // Covers Tab
         if (activeType === 'covers') {{
-          if (item.type !== 'covers') return false; // Zero backdrops allowed here!
+          if (item.type !== 'covers') return false;
           if (activeSub === 'all') return true;
           if (activeSub === 'Actors') return item.category === 'Actors' || item.category === 'Directors';
           if (activeSub === 'International Cinema') return item.category === 'International Cinema';
@@ -869,7 +966,9 @@ def generate_gallery_html(assets):
       // SORT ALPHABETICALLY BY TITLE
       filtered.sort((a, b) => a.title.localeCompare(b.title, undefined, {{ sensitivity: 'base' }}));
 
-      statsSummary.textContent = `Showing ${{filtered.length}} items`;
+      let typeName = activeType.toUpperCase();
+      if (activeType === 'covers' && activeSub !== 'all') typeName = activeSub.toUpperCase();
+      sectionLabel.textContent = `LATEST ${{typeName}} (SHOWING ${{filtered.length}})`;
       grid.innerHTML = '';
 
       filtered.forEach(item => {{
@@ -969,12 +1068,10 @@ def generate_gallery_html(assets):
         modalCopyGifBtn.style.display = 'none';
       }}
 
-      // Populate Related Variations STRICTLY for THAT EXACT Country / Folder
+      // Populate Related Variations
       relatedGrid.innerHTML = '';
       const rawFolder = (item.subfolder || item.title).toLowerCase();
       const targetCat = item.category.toLowerCase();
-
-      // For International Cinema, clean country name (e.g. 'german cinema' from 'German Cinema Outline')
       const cleanCountry = rawFolder.replace('filmstripflag', '').replace('filmstriphybrid', '').replace('flag', '').replace('hybrid', '').replace('outline', '').replace('poster', '').trim();
 
       const related = ASSETS.filter(a => {{
@@ -1047,11 +1144,12 @@ def generate_gallery_html(assets):
       }}
     }});
 
-    navTabs.forEach(tab => {{
-      tab.addEventListener('click', () => {{
-        navTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        activeType = tab.dataset.type;
+    catItems.forEach(item => {{
+      item.addEventListener('click', () => {{
+        catItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        activeType = item.dataset.type;
+        catMenu.classList.remove('open');
 
         if (activeType === 'covers') {{
           subFilterBar.style.display = 'flex';
@@ -1091,7 +1189,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean All International Cinema Variations Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Bold Editorial Recipe-Inspired Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
