@@ -133,13 +133,11 @@ def scan_assets():
                 raw_assets.append(item)
                 
     # --- DE-DUPLICATION & GROUPING FOR INTERNATIONAL CINEMA AND VARIANTS ---
-    # Pick canonical primary card for main grid (e.g. Outline or Base) and link variations
     final_assets = []
     intl_grouped = {}
 
     for item in raw_assets:
         if item['category'] == 'International Cinema' and item['type'] == 'covers':
-            # Extract country name e.g. 'German Cinema' from 'German Cinema Outline'
             country_key = item['subfolder'] if item['subfolder'] else item['title']
             for style in ['FilmStripFlag', 'FilmStripHybrid', 'Flag', 'Hybrid', 'Outline', 'Poster']:
                 if style.lower() in country_key.lower():
@@ -151,14 +149,11 @@ def scan_assets():
         else:
             final_assets.append(item)
 
-    # For each International Cinema country, select the 'Outline' or primary card as main grid card
     for country, variants in intl_grouped.items():
-        # Prefer Outline style (the live Nuvio card)
         primary = next((v for v in variants if 'outline' in v['title'].lower()), variants[0])
-        primary['title'] = country  # Clean display title e.g. "German Cinema"
+        primary['title'] = country
         final_assets.append(primary)
 
-    # Sort ALL assets alphabetically by title for a diverse, rich mix
     final_assets.sort(key=lambda x: x['title'].lower())
     return final_assets
 
@@ -200,7 +195,7 @@ def generate_gallery_html(assets):
       -webkit-font-smoothing: antialiased;
     }}
 
-    /* --- ART-DIRECTED HEADER BAR --- */
+    /* --- ART-DIRECTED HEADER BAR WITH KAPTAIN LOGO --- */
     header {{
       background: var(--bg-header);
       backdrop-filter: blur(20px);
@@ -214,7 +209,7 @@ def generate_gallery_html(assets):
     .header-top {{
       max-width: 1600px;
       margin: 0 auto;
-      padding: 1rem 2rem;
+      padding: 0.85rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -229,18 +224,16 @@ def generate_gallery_html(assets):
       color: var(--text-main);
     }}
 
-    .brand-badge {{
-      width: 36px;
-      height: 36px;
-      background: #ffffff;
-      color: #000000;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
+    .brand-logo-img {{
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.45));
+      transition: transform 0.3s ease;
+    }}
+
+    .brand-group:hover .brand-logo-img {{
+      transform: scale(1.08) rotate(-3deg);
     }}
 
     .brand-title {{
@@ -321,12 +314,31 @@ def generate_gallery_html(assets):
       height: 16px;
     }}
 
-    /* --- EDITORIAL HERO SECTION --- */
+    /* --- EDITORIAL HERO SECTION WITH HERO EMBLEM --- */
     .hero-section {{
       text-align: center;
-      padding: 3.5rem 1.5rem 2rem;
+      padding: 3rem 1.5rem 1.8rem;
       max-width: 1100px;
       margin: 0 auto;
+    }}
+
+    .hero-logo-wrapper {{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }}
+
+    .hero-logo-img {{
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 30px rgba(168, 85, 247, 0.4));
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }}
+
+    .hero-logo-img:hover {{
+      transform: scale(1.05) translateY(-4px);
+      filter: drop-shadow(0 15px 40px rgba(168, 85, 247, 0.6));
     }}
 
     .hero-title {{
@@ -470,7 +482,7 @@ def generate_gallery_html(assets):
       transition: opacity 0.3s ease;
     }}
 
-    /* HOVER OVERLAY (CLEAN OVERLAY, NO GHOST TEXT) */
+    /* HOVER OVERLAY */
     .hover-overlay {{
       position: absolute;
       inset: 0;
@@ -823,7 +835,7 @@ def generate_gallery_html(assets):
   <header>
     <div class="header-top">
       <a href="#" class="brand-group">
-        <div class="brand-badge">K</div>
+        <img src="assets/kaptain_logo.png" alt="Kaptain Logo" class="brand-logo-img">
         <span class="brand-title">Kaptain's Mega Collection</span>
       </a>
 
@@ -852,8 +864,11 @@ def generate_gallery_html(assets):
     </div>
   </header>
 
-  <!-- STATEMENT HERO SECTION (BALANCED SCALE) -->
+  <!-- STATEMENT HERO SECTION WITH KAPTAIN SHIP EMBLEM -->
   <section class="hero-section">
+    <div class="hero-logo-wrapper">
+      <img src="assets/kaptain_logo.png" alt="Kaptain Logo" class="hero-logo-img">
+    </div>
     <h1 class="hero-title">
       <span class="hero-line-top">Kaptain's</span>
       <span class="hero-line-middle">Mega Collection</span>
@@ -1004,7 +1019,6 @@ def generate_gallery_html(assets):
         return true;
       }});
 
-      // SORT ALPHABETICALLY BY TITLE
       filtered.sort((a, b) => a.title.localeCompare(b.title, undefined, {{ sensitivity: 'base' }}));
 
       let typeName = activeType.toUpperCase();
@@ -1237,7 +1251,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Master Editorial Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Kaptain Logo Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
