@@ -306,7 +306,7 @@ def generate_gallery_html(assets):
       font-size: 0.85rem;
     }}
 
-    /* --- BOLD STATEMENT HERO SECTION --- */
+    /* --- BOLD STATEMENT HERO SECTION (3-ROW CENTER ALIGNED) --- */
     .hero-section {{
       text-align: center;
       padding: 3.5rem 1.5rem 2rem;
@@ -316,13 +316,14 @@ def generate_gallery_html(assets):
 
     .hero-title {{
       font-family: 'Outfit', sans-serif;
-      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -1.2px;
-      line-height: 1.05;
+      letter-spacing: -1.5px;
+      line-height: 1.02;
       color: #ffffff;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1.2rem;
+      text-align: center;
     }}
 
     .hero-subtitle {{
@@ -774,9 +775,13 @@ def generate_gallery_html(assets):
     </div>
   </header>
 
-  <!-- STATEMENT HERO SECTION -->
+  <!-- STATEMENT HERO SECTION (3 ROWS CENTER ALIGNED) -->
   <section class="hero-section">
-    <h1 class="hero-title">Kaptain's Mega Collection<br>of Assets</h1>
+    <h1 class="hero-title">
+      Kaptain's<br>
+      Mega Collection<br>
+      of Assets
+    </h1>
     <p class="hero-subtitle">Official portfolio for Nuvio covers, dynamic daily artwork, hero backdrops, and title logos.</p>
     
     <!-- SUB-FILTER PILLS FOR COVERS -->
@@ -1139,7 +1144,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean High-Contrast Impeccable Audited Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean 3-Row Center-Aligned Header Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
