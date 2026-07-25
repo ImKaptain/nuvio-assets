@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from PIL import Image
 
 ASSET_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -9,6 +10,7 @@ def classify_asset_type(root_folder, file_path):
     """Strictly classifies an asset into 'covers', 'backdrops', 'logos', or 'ignore'."""
     lower_path = file_path.lower()
     lower_root = root_folder.lower()
+    filename = lower_path.split('/')[-1]
     
     # User requested: Collection_Cards should not show in gallery
     if lower_root == 'collection_cards' or 'collection_cards' in lower_path:
@@ -17,10 +19,11 @@ def classify_asset_type(root_folder, file_path):
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
         
+    # Regex check for T1, T2, T3, T4, T5 collage variations (e.g. T1_1080p, T2_4K, _T1_)
+    is_t_backdrop = bool(re.search(r'(^|[\b_])t[1-9]([\b_.]|\d)', filename))
+        
     # Strict backdrop, collage, banner, and variant keywords
     backdrop_keywords = [
-        '_t1_', '_t2_', '_t3_', '_t4_', '_t5_',
-        '_t1.', '_t2.', '_t3.', '_t4.', '_t5.',
         'filmstrip', 'hybrid', 'outline', 'opt0', 'opt1',
         'opt2', 'opt3', 'option', 'variant', 'collage',
         'wallpaper', 'background', 'backdrop', 'prism',
@@ -34,6 +37,7 @@ def classify_asset_type(root_folder, file_path):
         lower_root == 'external_cache' or 
         'backdrop' in lower_root or 
         'background' in lower_root or 
+        is_t_backdrop or 
         is_backdrop_keyword):
         return 'backdrops'
     else:
@@ -730,6 +734,7 @@ def generate_gallery_html(assets):
       <button class="sub-btn" data-sub="Moods">Moods & Vibes</button>
       <button class="sub-btn" data-sub="Actors">Actors & Directors</button>
       <button class="sub-btn" data-sub="Streaming Services">Streaming & Networks</button>
+      <button class="sub-btn" data-sub="International Cinema">International Cinema</button>
     </div>
   </header>
 
@@ -843,7 +848,14 @@ def generate_gallery_html(assets):
           if (item.type !== 'covers') return false; // Zero backdrops allowed here!
           if (activeSub === 'all') return true;
           if (activeSub === 'Actors') return item.category === 'Actors' || item.category === 'Directors';
-          if (activeSub === 'Streaming Services') return item.category === 'Streaming Services' || item.category === 'Networks';
+          if (activeSub === 'International Cinema') return item.category === 'International Cinema';
+          if (activeSub === 'Streaming Services') {{
+            const cat = item.category.toLowerCase();
+            const sub = (item.subfolder || '').toLowerCase();
+            const title = item.title.toLowerCase();
+            if (['streaming services', 'general_cards', 'trending _ new', 'misc'].includes(cat)) return true;
+            return ['streaming', 'network', 'bravo', 'channel 4', 'comedy central', 'disney', 'hgtv', 'mtv', 'pbs', 'syfy', 'tlc', 'tnt', 'mubi', 'cannes', 'academy', 'globes'].some(k => title.includes(k) || sub.includes(k));
+          }}
           return item.category === activeSub;
         }}
 
@@ -1072,7 +1084,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Strict Backdrop Filter Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Pure Genres & Streaming Fixed Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()

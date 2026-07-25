@@ -597,6 +597,7 @@
       <button class="sub-btn" data-sub="Moods">Moods & Vibes</button>
       <button class="sub-btn" data-sub="Actors">Actors & Directors</button>
       <button class="sub-btn" data-sub="Streaming Services">Streaming & Networks</button>
+      <button class="sub-btn" data-sub="International Cinema">International Cinema</button>
     </div>
   </header>
 
@@ -11755,7 +11756,7 @@
   {
     "id": "Genres_Martial_Arts_T1_1080p",
     "title": "T1 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Martial Arts",
     "is_gallery": false,
@@ -11771,7 +11772,7 @@
   {
     "id": "Genres_Music___Musical_T1_1080p",
     "title": "T1 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Music _ Musical",
     "is_gallery": false,
@@ -11787,7 +11788,7 @@
   {
     "id": "Genres_Sports_T1_1080p",
     "title": "T1 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Sports",
     "is_gallery": false,
@@ -11819,7 +11820,7 @@
   {
     "id": "Genres_Western_T1_1080p",
     "title": "T1 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Western",
     "is_gallery": false,
@@ -11867,7 +11868,7 @@
   {
     "id": "Genres_Martial_Arts_T1_4K",
     "title": "T1 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Martial Arts",
     "is_gallery": false,
@@ -11883,7 +11884,7 @@
   {
     "id": "Genres_Music___Musical_T1_4K",
     "title": "T1 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Music _ Musical",
     "is_gallery": false,
@@ -11899,7 +11900,7 @@
   {
     "id": "Genres_Sports_T1_4K",
     "title": "T1 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Sports",
     "is_gallery": false,
@@ -11931,7 +11932,7 @@
   {
     "id": "Genres_Western_T1_4K",
     "title": "T1 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Western",
     "is_gallery": false,
@@ -12123,7 +12124,7 @@
   {
     "id": "Genres_Martial_Arts_T2_1080p",
     "title": "T2 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Martial Arts",
     "is_gallery": false,
@@ -12139,7 +12140,7 @@
   {
     "id": "Genres_Music___Musical_T2_1080p",
     "title": "T2 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Music _ Musical",
     "is_gallery": false,
@@ -12155,7 +12156,7 @@
   {
     "id": "Genres_Sports_T2_1080p",
     "title": "T2 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Sports",
     "is_gallery": false,
@@ -12187,7 +12188,7 @@
   {
     "id": "Genres_Western_T2_1080p",
     "title": "T2 1080p",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Western",
     "is_gallery": false,
@@ -12315,7 +12316,7 @@
   {
     "id": "Genres_Martial_Arts_T2_4K",
     "title": "T2 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Martial Arts",
     "is_gallery": false,
@@ -12331,7 +12332,7 @@
   {
     "id": "Genres_Music___Musical_T2_4K",
     "title": "T2 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Music _ Musical",
     "is_gallery": false,
@@ -12347,7 +12348,7 @@
   {
     "id": "Genres_Sports_T2_4K",
     "title": "T2 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Sports",
     "is_gallery": false,
@@ -12379,7 +12380,7 @@
   {
     "id": "Genres_Western_T2_4K",
     "title": "T2 4K",
-    "type": "covers",
+    "type": "backdrops",
     "category": "Genres",
     "subfolder": "Western",
     "is_gallery": false,
@@ -14599,7 +14600,14 @@
           if (item.type !== 'covers') return false; // Zero backdrops allowed here!
           if (activeSub === 'all') return true;
           if (activeSub === 'Actors') return item.category === 'Actors' || item.category === 'Directors';
-          if (activeSub === 'Streaming Services') return item.category === 'Streaming Services' || item.category === 'Networks';
+          if (activeSub === 'International Cinema') return item.category === 'International Cinema';
+          if (activeSub === 'Streaming Services') {
+            const cat = item.category.toLowerCase();
+            const sub = (item.subfolder || '').toLowerCase();
+            const title = item.title.toLowerCase();
+            if (['streaming services', 'general_cards', 'trending _ new', 'misc'].includes(cat)) return true;
+            return ['streaming', 'network', 'bravo', 'channel 4', 'comedy central', 'disney', 'hgtv', 'mtv', 'pbs', 'syfy', 'tlc', 'tnt', 'mubi', 'cannes', 'academy', 'globes'].some(k => title.includes(k) || sub.includes(k));
+          }
           return item.category === activeSub;
         }
 
