@@ -6,10 +6,14 @@ ASSET_DIR = os.path.dirname(os.path.abspath(__file__))
 GITHUB_RAW_BASE = "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main"
 
 def classify_asset_type(root_folder, file_path):
-    """Strictly classifies an asset into 'covers', 'backdrops', or 'logos'."""
+    """Strictly classifies an asset into 'covers', 'backdrops', 'logos', or 'ignore'."""
     lower_path = file_path.lower()
     lower_root = root_folder.lower()
     
+    # User requested: Collection_Cards should not show in gallery
+    if lower_root == 'collection_cards' or 'collection_cards' in lower_path:
+        return 'ignore'
+        
     if 'titlelogos' in lower_root or 'logo' in lower_path:
         return 'logos'
     elif (lower_root.startswith('nuvio_backdrops_') or 
@@ -47,7 +51,7 @@ def get_image_dimensions(full_path):
 def scan_assets():
     """Scans all folders in nuvio-assets and organizes them strictly into clean asset types with orientation data."""
     assets = []
-    ignore_dirs = {'.git', '.github', 'nuvio-share-hub', 'scratch', 'assets'}
+    ignore_dirs = {'.git', '.github', 'nuvio-share-hub', 'scratch', 'assets', 'Collection_Cards'}
     
     for root, dirs, files in os.walk(ASSET_DIR):
         dirs[:] = [d for d in dirs if d not in ignore_dirs]
@@ -70,6 +74,10 @@ def scan_assets():
             rel_file_path = os.path.join(rel_root, f).replace('\\', '/')
             raw_url = f"{GITHUB_RAW_BASE}/{rel_file_path.replace(' ', '%20')}"
             
+            asset_type = classify_asset_type(category, rel_file_path)
+            if asset_type == 'ignore':
+                continue
+                
             # Determine clean name
             clean_name = f
             for suffix in ['_Base_Dynamic.png', '_Hover_Dynamic.gif', '_Base.png', '_Hover.gif', '.png', '.jpg', '.gif']:
@@ -78,7 +86,6 @@ def scan_assets():
                     break
                     
             item_key = f"{rel_root}/{clean_name}"
-            asset_type = classify_asset_type(category, rel_file_path)
             
             if item_key not in grouped:
                 w, h, ratio, orientation = get_image_dimensions(full_file_path)
@@ -109,6 +116,8 @@ def scan_assets():
             if item['base_url']:
                 assets.append(item)
                 
+    # Sort ALL assets alphabetically by title for a diverse, rich mix
+    assets.sort(key=lambda x: x['title'].lower())
     return assets
 
 def generate_gallery_html(assets):
@@ -496,7 +505,6 @@ def generate_gallery_html(assets):
       <button class="sub-btn" data-sub="Moods">Moods & Vibes</button>
       <button class="sub-btn" data-sub="Actors">Actors & Directors</button>
       <button class="sub-btn" data-sub="Streaming Services">Streaming & Networks</button>
-      <button class="sub-btn" data-sub="Collection_Cards">Collection Cards</button>
     </div>
   </header>
 
@@ -564,6 +572,9 @@ def generate_gallery_html(assets):
 
         return true;
       }});
+
+      // SORT ALPHABETICALLY BY TITLE
+      filtered.sort((a, b) => a.title.localeCompare(b.title, undefined, {{ sensitivity: 'base' }}));
 
       statsSummary.textContent = `Showing ${{filtered.length}} items`;
       grid.innerHTML = '';
@@ -668,7 +679,7 @@ def main():
     with open(out_file, 'w', encoding='utf-8') as f:
         f.write(html)
         
-    print(f"Successfully generated clean Tumblr Puzzle Grid Portfolio HTML at: {out_file}")
+    print(f"Successfully generated clean Alphabetically Sorted Portfolio HTML at: {out_file}")
 
 if __name__ == '__main__':
     main()
