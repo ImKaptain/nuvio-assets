@@ -1,0 +1,52 @@
+{
+  "Cozy & Comforting": {
+    "title": "Cozy & Comforting",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Cozy%20_%20Comforting/Cozy_Comforting_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Cozy%20_%20Comforting/Cozy_Comforting_Hover.gif"
+  },
+  "Mind-Bending": {
+    "title": "Mind-Bending",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Mind-Bending/Mind_Bending_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Mind-Bending/Mind_Bending_Hover.gif"
+  },
+  "Adrenaline Rush": {
+    "title": "Adrenaline Rush",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Adrenaline%20Rush/Adrenaline_Rush_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Adrenaline%20Rush/Adrenaline_Rush_Hover.gif"
+  },
+  "Slow Burn": {
+    "title": "Slow Burn",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Slow%20Burn/Slow_Burn_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Slow%20Burn/Slow_Burn_Hover.gif"
+  },
+  "80s & 90s Vibes": {
+    "title": "80s & 90s Vibes",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/80s%20_%2090s%20Vibes/80s_90s_Vibes_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/80s%20_%2090s%20Vibes/80s_90s_Vibes_Hover.gif"
+  },
+  "Tearjerkers": {
+    "title": "Tearjerkers",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Tearjerkers/Tearjerkers_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Tearjerkers/Tearjerkers_Hover.gif"
+  },
+  "Feel-Good": {
+    "title": "Feel-Good",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Feel-Good/Feel_Good_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Feel-Good/Feel_Good_Hover.gif"
+  },
+  "Dark & Gritty": {
+    "title": "Dark & Gritty",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Dark%20_%20Gritty/Dark_Gritty_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Dark%20_%20Gritty/Dark_Gritty_Hover.gif"
+  },
+  "Epic & Sweeping": {
+    "title": "Epic & Sweeping",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Epic%20_%20Sweeping/Epic_Sweeping_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Epic%20_%20Sweeping/Epic_Sweeping_Hover.gif"
+  },
+  "Spooky & Creepy": {
+    "title": "Spooky & Creepy",
+    "base": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Spooky%20_%20Creepy/Spooky_Creepy_Base.png",
+    "hover": "https://raw.githubusercontent.com/ImKaptain/nuvio-assets/main/Moods/Spooky%20_%20Creepy/Spooky_Creepy_Hover.gif"
+  }
+}
